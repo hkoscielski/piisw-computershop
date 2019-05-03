@@ -3,18 +3,18 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.capgemini</groupId>
-    <artifactId>ng-boot-project-seed</artifactId>
+    <groupId>com.piisw</groupId>
+    <artifactId>computershop</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>ng-boot-project-seed</name>
-    <description>Demo project for Spring Boot</description>
+    <name>piisw-sklep-komputerowy</name>
+    <description>Final project of piisw course</description>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>1.5.2.RELEASE</version>
+        <version>2.1.4.RELEASE</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
@@ -27,10 +27,10 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
         <js.client.dir>src/main/client</js.client.dir>
-        <node.version>v8.9.4</node.version>
-        <yarn.version>v1.3.2</yarn.version>
-        <npm.version>5.7.1</npm.version>
-        <frontend-maven-plugin.version>1.6</frontend-maven-plugin.version>
+        <node.version>v10.15.3</node.version>
+        <yarn.version>v1.15.2</yarn.version>
+        <npm.version>6.9.0</npm.version>
+        <frontend-maven-plugin.version>1.7.6</frontend-maven-plugin.version>
     </properties>
 
     <dependencies>
