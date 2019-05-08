@@ -13,13 +13,11 @@ export const APP_ROUTES: Routes = [
       },
       {
         path: 'categories/:categoryId',
-        component: ProductCategoryComponent,
-        children: [
-          {
-            path: 'products/:productId',
-            component: ProductItemComponent
-          }
-        ]
+        component: ProductCategoryComponent
+      },
+      {
+        path: 'products/:productId',
+        component: ProductItemComponent
       },
     ]
   },
