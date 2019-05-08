@@ -6,9 +6,9 @@ import {AppComponent} from './app.component';
 import {GeneralModule} from './general/general.module';
 import {RouterModule} from '@angular/router';
 import {APP_ROUTES} from './app.routing';
-import {BookService} from './book-mgmt/book.service';
 import {HttpClientModule} from "@angular/common/http";
 import {ProductMgmtModule} from "./product-mgmt/product-mgmt.module";
+import {ProductService} from "./product-mgmt/product.service";
 
 @NgModule({
   declarations: [
@@ -18,11 +18,11 @@ import {ProductMgmtModule} from "./product-mgmt/product-mgmt.module";
     BrowserModule,
     FormsModule,
     HttpClientModule,
-    RouterModule.forRoot(APP_ROUTES),
+    RouterModule.forRoot(APP_ROUTES, {useHash: true}),
     GeneralModule,
     ProductMgmtModule
   ],
-  providers: [BookService],
+  providers: [ProductService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

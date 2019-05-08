@@ -2,8 +2,8 @@ import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 import {AppComponent} from './app.component';
 import {RouterTestingModule} from '@angular/router/testing';
 import {GeneralModule} from './general/general.module';
-import {BookService} from './book-mgmt/book.service';
 import {ProductMgmtModule} from "./product-mgmt/product-mgmt.module";
+import {ProductService} from "./product-mgmt/product.service";
 
 describe('AppComponent', () => {
   let fixture: ComponentFixture<AppComponent>;
@@ -18,7 +18,7 @@ describe('AppComponent', () => {
         GeneralModule,
         ProductMgmtModule
       ],
-      providers: [BookService],
+      providers: [ProductService],
     }).compileComponents();
 
 
