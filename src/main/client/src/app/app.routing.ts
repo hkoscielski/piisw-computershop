@@ -1,28 +1,31 @@
 import {Routes} from '@angular/router';
-import {BookOverviewComponent} from './book-mgmt/book-overview/book-overview.component';
-import {BookDetailsComponent} from './book-mgmt/book-details/book-details.component';
+import {ProductMainComponent} from "./product-mgmt/product-main/product-main.component";
+import {ProductCategoryComponent} from "./product-mgmt/product-category/product-category.component";
+import {ProductItemComponent} from "./product-mgmt/product-item/product-item.component";
 
 export const APP_ROUTES: Routes = [
   {
     path: 'app',
     children: [
       {
-        path: 'books',
-        component: BookOverviewComponent
+        path: 'overview',
+        component: ProductMainComponent
       },
       {
-        path: 'book',
-        component: BookDetailsComponent
+        path: 'categories/:categoryId',
+        component: ProductCategoryComponent,
+        children: [
+          {
+            path: 'products/:productId',
+            component: ProductItemComponent
+          }
+        ]
       },
-      {
-        path: 'book/:bookId',
-        component: BookDetailsComponent
-      }
     ]
   },
   {
     path: '',
-    redirectTo: '/app/books',
+    redirectTo: '/app/overview',
     pathMatch: 'full'
   }
 ];

@@ -1,14 +1,14 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 import {FormsModule} from '@angular/forms';
-import {HttpModule} from '@angular/http';
 
 import {AppComponent} from './app.component';
 import {GeneralModule} from './general/general.module';
 import {RouterModule} from '@angular/router';
 import {APP_ROUTES} from './app.routing';
 import {BookService} from './book-mgmt/book.service';
-import {BookMgmtModule} from './book-mgmt/book-mgmt.module';
+import {HttpClientModule} from "@angular/common/http";
+import {ProductMgmtModule} from "./product-mgmt/product-mgmt.module";
 
 @NgModule({
   declarations: [
@@ -17,10 +17,10 @@ import {BookMgmtModule} from './book-mgmt/book-mgmt.module';
   imports: [
     BrowserModule,
     FormsModule,
-    HttpModule,
+    HttpClientModule,
     RouterModule.forRoot(APP_ROUTES),
     GeneralModule,
-    BookMgmtModule
+    ProductMgmtModule
   ],
   providers: [BookService],
   bootstrap: [AppComponent]
