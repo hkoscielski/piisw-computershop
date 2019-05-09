@@ -33,7 +33,7 @@ describe('NavComponent', () => {
         const compiled = fixture.debugElement.nativeElement;
         const linkElements = compiled.querySelectorAll('ul li');
         expect(linkElements.length).toBe(2);
-        expect(linkElements[0].querySelector('a').textContent).toContain('Book Overview');
-        expect(linkElements[1].querySelector('a').textContent).toContain('New Book');
+        expect(linkElements[0].querySelector('a').textContent).toContain('First categories');
+        expect(linkElements[1].querySelector('a').textContent).toContain('First product');
     }));
 });

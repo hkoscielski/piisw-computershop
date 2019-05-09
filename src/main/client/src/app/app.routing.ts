@@ -5,25 +5,43 @@ import {ProductItemComponent} from "./product-mgmt/product-item/product-item.com
 
 export const APP_ROUTES: Routes = [
   {
-    path: 'app',
-    children: [
-      {
-        path: 'overview',
-        component: ProductMainComponent
-      },
-      {
-        path: 'categories/:categoryId',
-        component: ProductCategoryComponent
-      },
-      {
-        path: 'products/:productId',
-        component: ProductItemComponent
-      },
-    ]
+    path: '',
+    component: ProductMainComponent,
+    pathMatch: 'full'
   },
   {
-    path: '',
-    redirectTo: '/app/overview',
-    pathMatch: 'full'
+    path: 'categories/:categoryId',
+    component: ProductCategoryComponent
+  },
+  {
+    path: 'products/:productId',
+    component: ProductItemComponent
+  },
+  {
+    path: '**',
+    component: ProductMainComponent
   }
+
+
+  //   path: 'app',
+  //   children: [
+  //     {
+  //       path: 'overview',
+  //       component: ProductMainComponent
+  //     },
+  //     {
+  //       path: 'categories/:categoryId',
+  //       component: ProductCategoryComponent
+  //     },
+  //     {
+  //       path: 'products/:productId',
+  //       component: ProductItemComponent
+  //     },
+  //   ]
+  // },
+  // {
+  //   path: '',
+  //   redirectTo: '/app/overview',
+  //   pathMatch: 'full'
+  // }
 ];
