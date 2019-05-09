@@ -1,9 +1,7 @@
 package com.piisw.computershop.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
 
@@ -13,6 +11,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @Getter
 @Setter
+@SuperBuilder
 @Inheritance(strategy = InheritanceType.JOINED)
 public abstract class ProductEntity {
 
