@@ -9,9 +9,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.DependsOn;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
@@ -91,6 +95,53 @@ public class CollectionModelMapperTest {
 	}
 
 	@Test
+	public void shouldMapPageDtoToPageEntity() {
+		//given
+		GraphicsCardResponseDTO dto1 = GraphicsCardResponseDTO.builder()
+				.chipsetManufacturer("NVIDIA")
+				.chipset("GeForce GTX 1050 Ti")
+				.memorySize("4096 MB")
+				.memoryType("GDDR5")
+				.coreSpeed("1341 MHz")
+				.memorySpeed("7008 MHz")
+				.connectorType("PCI-Express x16")
+				.build();
+		GraphicsCardResponseDTO dto2 = GraphicsCardResponseDTO.builder()
+				.chipsetManufacturer("AMD")
+				.chipset("Radeon RX 590")
+				.memorySize("8192 MB")
+				.memoryType("GDDR5")
+				.coreSpeed("1565 MHz")
+				.memorySpeed("8000 MHz")
+				.connectorType("PCI-Express x16")
+				.build();
+		List<GraphicsCardResponseDTO> dtos = Arrays.asList(dto1, dto2);
+		Page<GraphicsCardResponseDTO> dtosPage = new PageImpl<>(dtos, PageRequest.of(1, 20), dtos.size());
+
+		//when
+		Page<GraphicsCardEntity> entitiesPage = collectionModelMapper.mapPage(dtosPage, GraphicsCardEntity.class);
+
+		//then
+		List<GraphicsCardResponseDTO> dtosPageContent = dtosPage.getContent();
+		List<GraphicsCardEntity> entitiesPageContent = entitiesPage.getContent();
+		assertEquals(dtosPage.getTotalElements(), entitiesPage.getTotalElements());
+		assertEquals(dtosPageContent.get(0).getChipsetManufacturer(), entitiesPageContent.get(0).getChipsetManufacturer());
+		assertEquals(dtosPageContent.get(0).getChipset(), entitiesPageContent.get(0).getChipset());
+		assertEquals(dtosPageContent.get(0).getMemorySize(), entitiesPageContent.get(0).getMemorySize());
+		assertEquals(dtosPageContent.get(0).getMemoryType(), entitiesPageContent.get(0).getMemoryType());
+		assertEquals(dtosPageContent.get(0).getCoreSpeed(), entitiesPageContent.get(0).getCoreSpeed());
+		assertEquals(dtosPageContent.get(0).getMemorySpeed(), entitiesPageContent.get(0).getMemorySpeed());
+		assertEquals(dtosPageContent.get(0).getConnectorType(), entitiesPageContent.get(0).getConnectorType());
+		assertEquals(dtosPageContent.get(1).getChipsetManufacturer(), entitiesPageContent.get(1).getChipsetManufacturer());
+		assertEquals(dtosPageContent.get(1).getChipset(), entitiesPageContent.get(1).getChipset());
+		assertEquals(dtosPageContent.get(1).getMemorySize(), entitiesPageContent.get(1).getMemorySize());
+		assertEquals(dtosPageContent.get(1).getMemoryType(), entitiesPageContent.get(1).getMemoryType());
+		assertEquals(dtosPageContent.get(1).getCoreSpeed(), entitiesPageContent.get(1).getCoreSpeed());
+		assertEquals(dtosPageContent.get(1).getMemorySpeed(), entitiesPageContent.get(1).getMemorySpeed());
+		assertEquals(dtosPageContent.get(1).getConnectorType(), entitiesPageContent.get(1).getConnectorType());
+	}
+
+	@Test
 	public void shouldMapListDtoToListEntity() {
 		//given
 		GraphicsCardResponseDTO dto1 = GraphicsCardResponseDTO.builder()
@@ -132,7 +183,6 @@ public class CollectionModelMapperTest {
 		assertEquals(dtos.get(1).getCoreSpeed(), entities.get(1).getCoreSpeed());
 		assertEquals(dtos.get(1).getMemorySpeed(), entities.get(1).getMemorySpeed());
 		assertEquals(dtos.get(1).getConnectorType(), entities.get(1).getConnectorType());
-
 	}
 
 	@Test
