@@ -1,0 +1,37 @@
+body {
+  width: 1000px;
+  margin: auto;
+  border: 1px solid;
+}
+
+header {
+  text-align: center;
+  background: pink;
+}
+
+nav {
+  float: left;
+  background: grey;
+  width: 20%;
+}
+
+category-menu-row {
+  float: left;
+}
+
+nav a {
+  text-decoration: none;
+  color: orange;
+}
+
+#main {
+  float: left;
+  background: yellow;
+  width: 80%;
+}
+
+footer {
+  clear: both;
+  background: red;
+  text-align: center;
+}

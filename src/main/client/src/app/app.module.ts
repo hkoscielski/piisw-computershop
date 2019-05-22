@@ -9,6 +9,7 @@ import {APP_ROUTES} from './app.routing';
 import {HttpClientModule} from "@angular/common/http";
 import {ProductMgmtModule} from "./product-mgmt/product-mgmt.module";
 import {ProductService} from "./product-mgmt/product.service";
+import {CategoryService} from "./product-mgmt/category.service";
 
 @NgModule({
   declarations: [
@@ -22,7 +23,7 @@ import {ProductService} from "./product-mgmt/product.service";
     GeneralModule,
     ProductMgmtModule
   ],
-  providers: [ProductService],
+  providers: [ProductService, CategoryService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

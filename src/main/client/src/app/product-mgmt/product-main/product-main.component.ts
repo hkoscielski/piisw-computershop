@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {Category, CategoryService} from "../category.service";
+import {RouterModule} from "@angular/router";
 
 @Component({
   selector: 'app-product-main',
@@ -7,9 +9,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProductMainComponent implements OnInit {
 
-  constructor() { }
+  currentCategories: Category[];
 
-  ngOnInit() {
+  constructor(private categoryService: CategoryService) { }
+
+  ngOnInit(): void {
+    this.currentCategories = this.categoryService.findAll();
   }
 
 }
