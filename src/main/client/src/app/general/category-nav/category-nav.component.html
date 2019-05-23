@@ -1,0 +1,8 @@
+<div class="container-fluid col">
+  <a class="list-group-item" style="text-align: center; background-color: lightgrey;">Categories</a>
+  <div class="list-group shadow-lg" *ngFor="let category of currentCategories">
+    <a class="list-group-item list-group-item-action" [routerLink]="['/categories', category.id]">
+      {{category.name}}
+    </a>
+  </div>
+</div>

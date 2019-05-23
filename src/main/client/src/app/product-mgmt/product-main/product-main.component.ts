@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import {Category, CategoryService} from "../category.service";
-import {RouterModule} from "@angular/router";
 
 @Component({
   selector: 'app-product-main',
