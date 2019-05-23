@@ -7,9 +7,9 @@ values
 
 insert into products (id, image_id)
 values
+    (product_seq.nextval, null),
+    (product_seq.nextval, null),
     (product_seq.nextval, 1),
-    (product_seq.nextval, null),
-    (product_seq.nextval, null),
     (product_seq.nextval, null);
 
 insert into rams (series, memory_size, memory_type, number_of_modules, speed_rating, standard, cycle_latency, frequency, product_id)

@@ -36,6 +36,12 @@ public class GraphicsCardController {
 		return ResponseEntity.ok(graphicsCards);
 	}
 
+	@GetMapping("/graphics-cards/{id}")
+	public ResponseEntity<GraphicsCardResponseDTO> getGraphicsCard(@PathVariable Long id) {
+		GraphicsCardResponseDTO graphicsCard = graphicsCardService.findById(id);
+		return ResponseEntity.ok(graphicsCard);
+	}
+
 	@GetMapping("/graphics-cards/{id}/image")
 	public ResponseEntity<?> getImage(@PathVariable Long id) {
 		return imageRepository.findById(id)

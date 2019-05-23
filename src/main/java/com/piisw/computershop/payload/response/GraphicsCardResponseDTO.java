@@ -4,6 +4,7 @@ import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -12,6 +13,7 @@ import javax.validation.constraints.NotBlank;
 @SuperBuilder
 public class GraphicsCardResponseDTO {
 
+	@NotNull private Long id;
 	@NotBlank private String chipsetManufacturer;
 	@NotBlank private String chipset;
 	@NotBlank private String memorySize;
