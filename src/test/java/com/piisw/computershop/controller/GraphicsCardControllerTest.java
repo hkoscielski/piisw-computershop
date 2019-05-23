@@ -1,6 +1,8 @@
 package com.piisw.computershop.controller;
 
 import com.piisw.computershop.payload.response.GraphicsCardResponseDTO;
+import com.piisw.computershop.repository.ImageContentStore;
+import com.piisw.computershop.repository.ImageRepository;
 import com.piisw.computershop.service.GraphicsCardService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -20,7 +22,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import static org.hamcrest.Matchers.hasSize;
-import static org.junit.Assert.*;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -34,6 +35,12 @@ public class GraphicsCardControllerTest {
 
 	@MockBean
 	private GraphicsCardService graphicsCardService;
+
+	@MockBean
+	private ImageContentStore imageContentStore;
+
+	@MockBean
+	private ImageRepository imageRepository;
 
 	@Test
 	public void shouldReturnGraphicsCards() throws Exception {

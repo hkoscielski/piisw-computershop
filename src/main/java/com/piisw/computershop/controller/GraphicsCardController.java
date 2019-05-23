@@ -44,7 +44,9 @@ public class GraphicsCardController {
 
 	@GetMapping("/graphics-cards/{id}/image")
 	public ResponseEntity<?> getImage(@PathVariable Long id) {
-		return imageRepository.findById(id)
+		GraphicsCardResponseDTO graphicsCard = graphicsCardService.findById(id);
+		System.out.println(graphicsCard.getImageId());
+		return imageRepository.findById(graphicsCard.getImageId())
 				.map(image -> {
 					InputStreamResource inputStreamResource = new InputStreamResource(imageContentStore.getContent(image));
 					HttpHeaders headers = new HttpHeaders();
