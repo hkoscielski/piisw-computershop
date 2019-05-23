@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {GraphicsCard, ProductService} from "../product.service";
 
 @Component({
   selector: 'app-product-item',
@@ -7,9 +8,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProductItemComponent implements OnInit {
 
-  constructor() { }
+  currentGraphicsCard: GraphicsCard;
+  currentImageUrl: string;
+
+  constructor(private productService: ProductService) { }
 
   ngOnInit() {
+    this.productService.findGraphicsCardById(3)
+      .subscribe(graphicsCard => {
+        this.currentGraphicsCard = graphicsCard.body;
+        this.currentImageUrl = `${graphicsCard.url}\\image`;
+      });
   }
-
 }
