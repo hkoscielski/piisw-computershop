@@ -6,14 +6,17 @@ import {ProductMainComponent} from './product-main/product-main.component';
 import {FormsModule} from '@angular/forms';
 import {RouterModule} from '@angular/router';
 import {HttpClientModule} from '@angular/common/http';
+import {GeneralModule} from "../general/general.module";
+import {CategoryNavComponent} from "../general/category-nav/category-nav.component";
 
 @NgModule({
-  declarations: [ProductItemComponent, ProductCategoryComponent, ProductMainComponent],
+  declarations: [ProductItemComponent, ProductCategoryComponent, ProductMainComponent, CategoryNavComponent],
   imports: [
     CommonModule,
     FormsModule,
     RouterModule,
-    HttpClientModule
+    HttpClientModule,
+    GeneralModule
   ]
 })
 export class ProductMgmtModule {
