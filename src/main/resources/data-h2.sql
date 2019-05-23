@@ -1,9 +1,16 @@
-insert into products (id)
+alter sequence product_seq restart with 1;
+alter sequence image_seq restart with 1;
+
+insert into images (id, content_id, content_length, mime_type)
 values
-    (1),
-    (2),
-    (3),
-    (4);
+    (image_seq.nextval, 'image1.png', 32131312, 'image/png');
+
+insert into products (id, image_id)
+values
+    (product_seq.nextval, 1),
+    (product_seq.nextval, null),
+    (product_seq.nextval, null),
+    (product_seq.nextval, null);
 
 insert into rams (series, memory_size, memory_type, number_of_modules, speed_rating, standard, cycle_latency, frequency, product_id)
 values
