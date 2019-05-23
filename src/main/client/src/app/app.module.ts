@@ -13,7 +13,7 @@ import {CategoryService} from "./product-mgmt/category.service";
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,

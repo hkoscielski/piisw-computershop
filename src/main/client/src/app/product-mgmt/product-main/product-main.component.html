@@ -1,25 +1,18 @@
-<body>
-  <header>
-    Nagłówek
-  </header>
-
-  <nav>
-      <div *ngFor="let category of currentCategories" class="category-menu-row">
-        <a class="category-link" [routerLink]="['/categories', category.id]">
-          {{category.name}}
-        </a>
+<div class="container" style="max-width: 60%;">
+  <div class="row justify-content-md-center">
+    <app-category-nav></app-category-nav>
+    <div class="container-fluid col" style="width: 40%;">
+      <label class="rounded shadow-lg" style="text-align: center; background-color: lightgrey; width: 100%;">Hot products</label>
+      <p></p>
+      <div class="card shadow-lg">
+        <div class="card-body">
+          Body
+        </div>
       </div>
-  </nav>
+    </div>
+  </div>
+</div>
 
-  <section id="main">
-    Strona główna
-  </section>
-
-  <footer>
-    Stopka
-  </footer>
-
-</body>
 
 
 
