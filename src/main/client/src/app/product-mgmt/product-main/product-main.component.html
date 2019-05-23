@@ -1,3 +1,26 @@
-<p>
-  product-main works!
-</p>
+<body>
+  <header>
+    Nagłówek
+  </header>
+
+  <nav>
+      <div *ngFor="let category of currentCategories" class="category-menu-row">
+        <a class="category-link" [routerLink]="['/categories', category.id]">
+          {{category.name}}
+        </a>
+      </div>
+  </nav>
+
+  <section id="main">
+    Strona główna
+  </section>
+
+  <footer>
+    Stopka
+  </footer>
+
+</body>
+
+
+
+
