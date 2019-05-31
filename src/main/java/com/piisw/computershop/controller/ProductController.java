@@ -1,10 +1,10 @@
 package com.piisw.computershop.controller;
 
 import com.piisw.computershop.exception.ResourceNotFoundException;
-import com.piisw.computershop.payload.response.GraphicsCardResponseDTO;
+import com.piisw.computershop.payload.response.ProductResponseDTO;
 import com.piisw.computershop.repository.ImageContentStore;
 import com.piisw.computershop.repository.ImageRepository;
-import com.piisw.computershop.service.GraphicsCardService;
+import com.piisw.computershop.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.data.domain.Page;
@@ -19,10 +19,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api")
-public class GraphicsCardController {
+public class ProductController {
 
 	@Autowired
-	private GraphicsCardService graphicsCardService;
+	private ProductService productService;
 
 	@Autowired
 	private ImageContentStore imageContentStore;
@@ -30,23 +30,23 @@ public class GraphicsCardController {
 	@Autowired
 	private ImageRepository imageRepository;
 
-	@GetMapping("/graphics-cards")
-	public ResponseEntity<Page<GraphicsCardResponseDTO>> getGraphicsCards(Pageable pageable) {
-		Page<GraphicsCardResponseDTO> graphicsCards = graphicsCardService.findAll(pageable);
-		return ResponseEntity.ok(graphicsCards);
+	@GetMapping("/products")
+	public ResponseEntity<Page<ProductResponseDTO>> getProducts(Pageable pageable) {
+		Page<ProductResponseDTO> products = productService.findAll(pageable);
+		return ResponseEntity.ok(products);
 	}
 
-	@GetMapping("/graphics-cards/{id}")
-	public ResponseEntity<GraphicsCardResponseDTO> getGraphicsCard(@PathVariable Long id) {
-		GraphicsCardResponseDTO graphicsCard = graphicsCardService.findById(id);
-		return ResponseEntity.ok(graphicsCard);
+	@GetMapping("/products/{id}")
+	public ResponseEntity<ProductResponseDTO> getGraphicsCard(@PathVariable Long id) {
+		ProductResponseDTO product = productService.findById(id);
+		return ResponseEntity.ok(product);
 	}
 
-	@GetMapping("/graphics-cards/{id}/image")
+	@GetMapping("/products/{id}/image")
 	public ResponseEntity<?> getImage(@PathVariable Long id) {
-		GraphicsCardResponseDTO graphicsCard = graphicsCardService.findById(id);
-		System.out.println(graphicsCard.getImageId());
-		return imageRepository.findById(graphicsCard.getImageId())
+		ProductResponseDTO product = productService.findById(id);
+		System.out.println(product.getImageId());
+		return imageRepository.findById(product.getImageId())
 				.map(image -> {
 					InputStreamResource inputStreamResource = new InputStreamResource(imageContentStore.getContent(image));
 					HttpHeaders headers = new HttpHeaders();
@@ -54,6 +54,6 @@ public class GraphicsCardController {
 					headers.set(HttpHeaders.CONTENT_TYPE, image.getMimeType());
 					return new ResponseEntity<Object>(inputStreamResource, headers, HttpStatus.OK);
 				})
-				.orElseThrow(() -> new ResourceNotFoundException("Graphics card image", "id", id.toString()));
+				.orElseThrow(() -> new ResourceNotFoundException("Product image", "id", id.toString()));
 	}
 }

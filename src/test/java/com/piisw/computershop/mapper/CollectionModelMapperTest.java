@@ -1,9 +1,16 @@
 package com.piisw.computershop.mapper;
 
-import com.piisw.computershop.domain.GraphicsCardEntity;
-import com.piisw.computershop.payload.response.GraphicsCardResponseDTO;
+import com.google.common.collect.Iterables;
+import com.piisw.computershop.domain.Image;
+import com.piisw.computershop.domain.ProductAttrEntity;
+import com.piisw.computershop.domain.ProductEntity;
+import com.piisw.computershop.payload.AttributeDTO;
+import com.piisw.computershop.payload.response.ProductResponseDTO;
+import org.assertj.core.util.Lists;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.modelmapper.Converter;
+import org.modelmapper.ExpressionMap;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.TestConfiguration;
@@ -17,6 +24,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import static org.junit.Assert.assertEquals;
 
@@ -27,8 +36,30 @@ public class CollectionModelMapperTest {
 	static class MappingTestConfiguration {
 
 		@Bean
+		public ExpressionMap<ProductEntity, ProductResponseDTO> productEntityToDtoMapping() {
+			Converter<List<ProductAttrEntity>, Map<String, AttributeDTO>> mainAttrToNameAndValueMappingConverter =
+					context -> context.getSource().stream()
+							.filter(ProductAttrEntity::getIsMain)
+							.collect(Collectors.toMap(ProductAttrEntity::getCode, productAttrEntity -> new AttributeDTO(productAttrEntity.getName(), productAttrEntity.getValue())));
+			Converter<List<ProductAttrEntity>, Map<String, AttributeDTO>> additionalAttrToNameAndValueMappingConverter =
+					context -> context.getSource().stream()
+							.filter(attr -> !attr.getIsMain())
+							.collect(Collectors.toMap(ProductAttrEntity::getCode, productAttrEntity -> new AttributeDTO(productAttrEntity.getName(), productAttrEntity.getValue())));
+
+			return mapping -> {
+				mapping.using(mainAttrToNameAndValueMappingConverter)
+						.map(ProductEntity::getProductAttrEntities, ProductResponseDTO::setMainAttributes);
+				mapping.using(additionalAttrToNameAndValueMappingConverter)
+						.map(ProductEntity::getProductAttrEntities, ProductResponseDTO::setAdditionalAttributes);
+			};
+		}
+
+		@Bean
 		public ModelMapper modelMapper() {
-			return new ModelMapper();
+			ModelMapper modelMapper = new ModelMapper();
+			modelMapper.createTypeMap(ProductEntity.class, ProductResponseDTO.class)
+					.addMappings(productEntityToDtoMapping());
+			return modelMapper;
 		}
 
 		@Bean
@@ -42,192 +73,165 @@ public class CollectionModelMapperTest {
 	private CollectionModelMapper collectionModelMapper;
 
 	@Test
-	public void shouldMapDtoToEntity() {
-		//given
-		GraphicsCardResponseDTO dto = GraphicsCardResponseDTO.builder()
-				.chipsetManufacturer("NVIDIA")
-				.chipset("GeForce GTX 1050 Ti")
-				.memorySize("4096 MB")
-				.memoryType("GDDR5")
-				.coreSpeed("1341 MHz")
-				.memorySpeed("7008 MHz")
-				.connectorType("PCI-Express x16")
-				.build();
-
-		//when
-		GraphicsCardEntity entity = collectionModelMapper.map(dto, GraphicsCardEntity.class);
-
-		//then
-		assertEquals(dto.getChipsetManufacturer(), entity.getChipsetManufacturer());
-		assertEquals(dto.getChipset(), entity.getChipset());
-		assertEquals(dto.getMemorySize(), entity.getMemorySize());
-		assertEquals(dto.getMemoryType(), entity.getMemoryType());
-		assertEquals(dto.getCoreSpeed(), entity.getCoreSpeed());
-		assertEquals(dto.getMemorySpeed(), entity.getMemorySpeed());
-		assertEquals(dto.getConnectorType(), entity.getConnectorType());
-	}
-
-	@Test
 	public void shouldMapEntityToDto() {
 		//given
-		GraphicsCardEntity entity = GraphicsCardEntity.builder()
-				.id(1L)
-				.chipsetManufacturer("NVIDIA")
-				.chipset("GeForce GTX 1050 Ti")
-				.memorySize("4096 MB")
-				.memoryType("GDDR5")
-				.coreSpeed("1341 MHz")
-				.memorySpeed("7008 MHz")
-				.connectorType("PCI-Express x16")
-				.build();
+		Image image = new Image(1L, "image1.png", 123123123, "image/png");
+		ProductEntity entity = new ProductEntity(1L, image, Collections.emptyList());
+		List<ProductAttrEntity> mainAttributes = Arrays.asList(
+				new ProductAttrEntity(1L, "chipsetManufacturer", "Chipset manufacturer", "NVIDIA", true, entity),
+				new ProductAttrEntity(2L, "chipset", "Chipset", "GeForce GTX 1050 Ti", true, entity)
+		);
+		List<ProductAttrEntity> additionalAttributes = Arrays.asList(
+				new ProductAttrEntity(3L, "coreSpeed", "Core speed", "1341 MHz", false, entity),
+				new ProductAttrEntity(4L, "memorySpeed", "Memory speed", "7008 MHz", false, entity)
+		);
+		entity.setProductAttrEntities(Lists.newArrayList(Iterables.concat(mainAttributes, additionalAttributes)));
 
 		//when
-		GraphicsCardResponseDTO dto = collectionModelMapper.map(entity, GraphicsCardResponseDTO.class);
+		ProductResponseDTO dto = collectionModelMapper.map(entity, ProductResponseDTO.class);
 
 		//then
-		assertEquals(entity.getChipsetManufacturer(), dto.getChipsetManufacturer());
-		assertEquals(entity.getChipset(), dto.getChipset());
-		assertEquals(entity.getMemorySize(), dto.getMemorySize());
-		assertEquals(entity.getMemoryType(), dto.getMemoryType());
-		assertEquals(entity.getCoreSpeed(), dto.getCoreSpeed());
-		assertEquals(entity.getMemorySpeed(), dto.getMemorySpeed());
-		assertEquals(entity.getConnectorType(), dto.getConnectorType());
+		assertEquals(entity.getId(), dto.getId());
+		assertEquals(entity.getImage().getId(), dto.getId());
+
+		assertEquals(mainAttributes.size(), dto.getMainAttributes().size());
+		assertEquals(mainAttributes.get(0).getName(), dto.getMainAttributes().get("chipsetManufacturer").getName());
+		assertEquals(mainAttributes.get(0).getValue(), dto.getMainAttributes().get("chipsetManufacturer").getValue());
+		assertEquals(mainAttributes.get(1).getName(), dto.getMainAttributes().get("chipset").getName());
+		assertEquals(mainAttributes.get(1).getValue(), dto.getMainAttributes().get("chipset").getValue());
+
+		assertEquals(additionalAttributes.size(), dto.getAdditionalAttributes().size());
+		assertEquals(additionalAttributes.get(0).getName(), dto.getAdditionalAttributes().get("coreSpeed").getName());
+		assertEquals(additionalAttributes.get(0).getValue(), dto.getAdditionalAttributes().get("coreSpeed").getValue());
+		assertEquals(additionalAttributes.get(1).getName(), dto.getAdditionalAttributes().get("memorySpeed").getName());
+		assertEquals(additionalAttributes.get(1).getValue(), dto.getAdditionalAttributes().get("memorySpeed").getValue());
 	}
 
 	@Test
-	public void shouldMapPageDtoToPageEntity() {
+	public void shouldMapPageEntityToPageDto() {
 		//given
-		GraphicsCardResponseDTO dto1 = GraphicsCardResponseDTO.builder()
-				.chipsetManufacturer("NVIDIA")
-				.chipset("GeForce GTX 1050 Ti")
-				.memorySize("4096 MB")
-				.memoryType("GDDR5")
-				.coreSpeed("1341 MHz")
-				.memorySpeed("7008 MHz")
-				.connectorType("PCI-Express x16")
-				.build();
-		GraphicsCardResponseDTO dto2 = GraphicsCardResponseDTO.builder()
-				.chipsetManufacturer("AMD")
-				.chipset("Radeon RX 590")
-				.memorySize("8192 MB")
-				.memoryType("GDDR5")
-				.coreSpeed("1565 MHz")
-				.memorySpeed("8000 MHz")
-				.connectorType("PCI-Express x16")
-				.build();
-		List<GraphicsCardResponseDTO> dtos = Arrays.asList(dto1, dto2);
-		Page<GraphicsCardResponseDTO> dtosPage = new PageImpl<>(dtos, PageRequest.of(1, 20), dtos.size());
+		Image image1 = new Image(1L, "image1.png", 123123123, "image/png");
+		ProductEntity entity1 = new ProductEntity(1L, image1, Collections.emptyList());
+		List<ProductAttrEntity> mainAttributes1 = Arrays.asList(
+				new ProductAttrEntity(1L, "chipsetManufacturer", "Chipset manufacturer", "NVIDIA", true, entity1),
+				new ProductAttrEntity(2L, "chipset", "Chipset", "GeForce GTX 1050 Ti", true, entity1)
+		);
+		List<ProductAttrEntity> additionalAttributes1 = Arrays.asList(
+				new ProductAttrEntity(3L, "coreSpeed", "Core speed", "1341 MHz", false, entity1),
+				new ProductAttrEntity(4L, "memorySpeed", "Memory speed", "7008 MHz", false, entity1)
+		);
+		entity1.setProductAttrEntities(Lists.newArrayList(Iterables.concat(mainAttributes1, additionalAttributes1)));
+
+		Image image2 = new Image(2L, "image2.png", 321321, "image/png");
+		ProductEntity entity2 = new ProductEntity(2L, image2, Collections.emptyList());
+		List<ProductAttrEntity> mainAttributes2 = Arrays.asList(
+				new ProductAttrEntity(5L, "chipsetManufacturer", "Chipset manufacturer", "AMD", true, entity2),
+				new ProductAttrEntity(6L, "chipset", "Chipset", "Radeon RX 590", true, entity2)
+		);
+		List<ProductAttrEntity> additionalAttributes2 = Arrays.asList(
+				new ProductAttrEntity(7L, "coreSpeed", "Core speed", "1565 MHz", false, entity2),
+				new ProductAttrEntity(8L, "memorySpeed", "Memory speed", "8000 MHz", false, entity2)
+		);
+		entity2.setProductAttrEntities(Lists.newArrayList(Iterables.concat(mainAttributes2, additionalAttributes2)));
+
+		List<ProductEntity> entitites = Arrays.asList(entity1, entity2);
+		Page<ProductEntity> entitiesPage = new PageImpl<>(entitites, PageRequest.of(1, 20), entitites.size());
 
 		//when
-		Page<GraphicsCardEntity> entitiesPage = collectionModelMapper.mapPage(dtosPage, GraphicsCardEntity.class);
+		Page<ProductResponseDTO> dtosPage = collectionModelMapper.mapPage(entitiesPage, ProductResponseDTO.class);
 
 		//then
-		List<GraphicsCardResponseDTO> dtosPageContent = dtosPage.getContent();
-		List<GraphicsCardEntity> entitiesPageContent = entitiesPage.getContent();
-		assertEquals(dtosPage.getTotalElements(), entitiesPage.getTotalElements());
-		assertEquals(dtosPageContent.get(0).getChipsetManufacturer(), entitiesPageContent.get(0).getChipsetManufacturer());
-		assertEquals(dtosPageContent.get(0).getChipset(), entitiesPageContent.get(0).getChipset());
-		assertEquals(dtosPageContent.get(0).getMemorySize(), entitiesPageContent.get(0).getMemorySize());
-		assertEquals(dtosPageContent.get(0).getMemoryType(), entitiesPageContent.get(0).getMemoryType());
-		assertEquals(dtosPageContent.get(0).getCoreSpeed(), entitiesPageContent.get(0).getCoreSpeed());
-		assertEquals(dtosPageContent.get(0).getMemorySpeed(), entitiesPageContent.get(0).getMemorySpeed());
-		assertEquals(dtosPageContent.get(0).getConnectorType(), entitiesPageContent.get(0).getConnectorType());
-		assertEquals(dtosPageContent.get(1).getChipsetManufacturer(), entitiesPageContent.get(1).getChipsetManufacturer());
-		assertEquals(dtosPageContent.get(1).getChipset(), entitiesPageContent.get(1).getChipset());
-		assertEquals(dtosPageContent.get(1).getMemorySize(), entitiesPageContent.get(1).getMemorySize());
-		assertEquals(dtosPageContent.get(1).getMemoryType(), entitiesPageContent.get(1).getMemoryType());
-		assertEquals(dtosPageContent.get(1).getCoreSpeed(), entitiesPageContent.get(1).getCoreSpeed());
-		assertEquals(dtosPageContent.get(1).getMemorySpeed(), entitiesPageContent.get(1).getMemorySpeed());
-		assertEquals(dtosPageContent.get(1).getConnectorType(), entitiesPageContent.get(1).getConnectorType());
-	}
+		List<ProductResponseDTO> dtosPageContent = dtosPage.getContent();
+		List<ProductEntity> entitiesPageContent = entitiesPage.getContent();
 
-	@Test
-	public void shouldMapListDtoToListEntity() {
-		//given
-		GraphicsCardResponseDTO dto1 = GraphicsCardResponseDTO.builder()
-				.chipsetManufacturer("NVIDIA")
-				.chipset("GeForce GTX 1050 Ti")
-				.memorySize("4096 MB")
-				.memoryType("GDDR5")
-				.coreSpeed("1341 MHz")
-				.memorySpeed("7008 MHz")
-				.connectorType("PCI-Express x16")
-				.build();
-		GraphicsCardResponseDTO dto2 = GraphicsCardResponseDTO.builder()
-				.chipsetManufacturer("AMD")
-				.chipset("Radeon RX 590")
-				.memorySize("8192 MB")
-				.memoryType("GDDR5")
-				.coreSpeed("1565 MHz")
-				.memorySpeed("8000 MHz")
-				.connectorType("PCI-Express x16")
-				.build();
-		List<GraphicsCardResponseDTO> dtos = Arrays.asList(dto1, dto2);
+		assertEquals(entitiesPage.getTotalElements(), dtosPage.getTotalElements());
 
-		//when
-		List<GraphicsCardEntity> entities = collectionModelMapper.mapAll(dtos, GraphicsCardEntity.class);
+		assertEquals(entitiesPageContent.get(0).getId(), dtosPageContent.get(0).getId());
+		assertEquals(entitiesPageContent.get(0).getImage().getId(), dtosPageContent.get(0).getImageId());
+		assertEquals(mainAttributes1.size(), dtosPageContent.get(0).getMainAttributes().size());
+		assertEquals(mainAttributes1.get(0).getName(), dtosPageContent.get(0).getMainAttributes().get("chipsetManufacturer").getName());
+		assertEquals(mainAttributes1.get(0).getValue(), dtosPageContent.get(0).getMainAttributes().get("chipsetManufacturer").getValue());
+		assertEquals(mainAttributes1.get(1).getName(), dtosPageContent.get(0).getMainAttributes().get("chipset").getName());
+		assertEquals(mainAttributes1.get(1).getValue(), dtosPageContent.get(0).getMainAttributes().get("chipset").getValue());
+		assertEquals(additionalAttributes1.size(), dtosPageContent.get(0).getAdditionalAttributes().size());
+		assertEquals(additionalAttributes1.get(0).getName(), dtosPageContent.get(0).getAdditionalAttributes().get("coreSpeed").getName());
+		assertEquals(additionalAttributes1.get(0).getValue(), dtosPageContent.get(0).getAdditionalAttributes().get("coreSpeed").getValue());
+		assertEquals(additionalAttributes1.get(1).getName(), dtosPageContent.get(0).getAdditionalAttributes().get("memorySpeed").getName());
+		assertEquals(additionalAttributes1.get(1).getValue(), dtosPageContent.get(0).getAdditionalAttributes().get("memorySpeed").getValue());
 
-		//then
-		assertEquals(dtos.size(), entities.size());
-		assertEquals(dtos.get(0).getChipsetManufacturer(), entities.get(0).getChipsetManufacturer());
-		assertEquals(dtos.get(0).getChipset(), entities.get(0).getChipset());
-		assertEquals(dtos.get(0).getMemorySize(), entities.get(0).getMemorySize());
-		assertEquals(dtos.get(0).getMemoryType(), entities.get(0).getMemoryType());
-		assertEquals(dtos.get(0).getCoreSpeed(), entities.get(0).getCoreSpeed());
-		assertEquals(dtos.get(0).getMemorySpeed(), entities.get(0).getMemorySpeed());
-		assertEquals(dtos.get(0).getConnectorType(), entities.get(0).getConnectorType());
-		assertEquals(dtos.get(1).getChipsetManufacturer(), entities.get(1).getChipsetManufacturer());
-		assertEquals(dtos.get(1).getChipset(), entities.get(1).getChipset());
-		assertEquals(dtos.get(1).getMemorySize(), entities.get(1).getMemorySize());
-		assertEquals(dtos.get(1).getMemoryType(), entities.get(1).getMemoryType());
-		assertEquals(dtos.get(1).getCoreSpeed(), entities.get(1).getCoreSpeed());
-		assertEquals(dtos.get(1).getMemorySpeed(), entities.get(1).getMemorySpeed());
-		assertEquals(dtos.get(1).getConnectorType(), entities.get(1).getConnectorType());
+		assertEquals(entitiesPageContent.get(1).getId(), dtosPageContent.get(1).getId());
+		assertEquals(entitiesPageContent.get(1).getImage().getId(), dtosPageContent.get(1).getImageId());
+		assertEquals(mainAttributes2.size(), dtosPageContent.get(1).getMainAttributes().size());
+		assertEquals(mainAttributes2.get(0).getName(), dtosPageContent.get(1).getMainAttributes().get("chipsetManufacturer").getName());
+		assertEquals(mainAttributes2.get(0).getValue(), dtosPageContent.get(1).getMainAttributes().get("chipsetManufacturer").getValue());
+		assertEquals(mainAttributes2.get(1).getName(), dtosPageContent.get(1).getMainAttributes().get("chipset").getName());
+		assertEquals(mainAttributes2.get(1).getValue(), dtosPageContent.get(1).getMainAttributes().get("chipset").getValue());
+		assertEquals(additionalAttributes2.size(), dtosPageContent.get(1).getAdditionalAttributes().size());
+		assertEquals(additionalAttributes2.get(0).getName(), dtosPageContent.get(1).getAdditionalAttributes().get("coreSpeed").getName());
+		assertEquals(additionalAttributes2.get(0).getValue(), dtosPageContent.get(1).getAdditionalAttributes().get("coreSpeed").getValue());
+		assertEquals(additionalAttributes2.get(1).getName(), dtosPageContent.get(1).getAdditionalAttributes().get("memorySpeed").getName());
+		assertEquals(additionalAttributes2.get(1).getValue(), dtosPageContent.get(1).getAdditionalAttributes().get("memorySpeed").getValue());
 	}
 
 	@Test
 	public void shouldMapListEntityToListDto() {
 		//given
-		GraphicsCardEntity entity1 = GraphicsCardEntity.builder()
-				.id(1L)
-				.chipsetManufacturer("NVIDIA")
-				.chipset("GeForce GTX 1050 Ti")
-				.memorySize("4096 MB")
-				.memoryType("GDDR5")
-				.coreSpeed("1341 MHz")
-				.memorySpeed("7008 MHz")
-				.connectorType("PCI-Express x16")
-				.build();
-		GraphicsCardEntity entity2 = GraphicsCardEntity.builder()
-				.id(2L)
-				.chipsetManufacturer("AMD")
-				.chipset("Radeon RX 590")
-				.memorySize("8192 MB")
-				.memoryType("GDDR5")
-				.coreSpeed("1565 MHz")
-				.memorySpeed("8000 MHz")
-				.connectorType("PCI-Express x16")
-				.build();
-		List<GraphicsCardEntity> entities = Arrays.asList(entity1, entity2);
+		Image image1 = new Image(1L, "image1.png", 123123123, "image/png");
+		ProductEntity entity1 = new ProductEntity(1L, image1, Collections.emptyList());
+		List<ProductAttrEntity> mainAttributes1 = Arrays.asList(
+				new ProductAttrEntity(1L, "chipsetManufacturer", "Chipset manufacturer", "NVIDIA", true, entity1),
+				new ProductAttrEntity(2L, "chipset", "Chipset", "GeForce GTX 1050 Ti", true, entity1)
+		);
+		List<ProductAttrEntity> additionalAttributes1 = Arrays.asList(
+				new ProductAttrEntity(3L, "coreSpeed", "Core speed", "1341 MHz", false, entity1),
+				new ProductAttrEntity(4L, "memorySpeed", "Memory speed", "7008 MHz", false, entity1)
+		);
+		entity1.setProductAttrEntities(Lists.newArrayList(Iterables.concat(mainAttributes1, additionalAttributes1)));
+
+		Image image2 = new Image(2L, "image2.png", 321321, "image/png");
+		ProductEntity entity2 = new ProductEntity(2L, image2, Collections.emptyList());
+		List<ProductAttrEntity> mainAttributes2 = Arrays.asList(
+				new ProductAttrEntity(5L, "chipsetManufacturer", "Chipset manufacturer", "AMD", true, entity2),
+				new ProductAttrEntity(6L, "chipset", "Chipset", "Radeon RX 590", true, entity2)
+		);
+		List<ProductAttrEntity> additionalAttributes2 = Arrays.asList(
+				new ProductAttrEntity(7L, "coreSpeed", "Core speed", "1565 MHz", false, entity2),
+				new ProductAttrEntity(8L, "memorySpeed", "Memory speed", "8000 MHz", false, entity2)
+		);
+		entity2.setProductAttrEntities(Lists.newArrayList(Iterables.concat(mainAttributes2, additionalAttributes2)));
+
+		List<ProductEntity> entitites = Arrays.asList(entity1, entity2);
 
 		//when
-		List<GraphicsCardResponseDTO> dtos = collectionModelMapper.mapAll(entities, GraphicsCardResponseDTO.class);
+		List<ProductResponseDTO> dtos = collectionModelMapper.mapAll(entitites, ProductResponseDTO.class);
 
 		//then
-		assertEquals(dtos.size(), entities.size());
-		assertEquals(entities.get(0).getChipsetManufacturer(), dtos.get(0).getChipsetManufacturer());
-		assertEquals(entities.get(0).getChipset(), dtos.get(0).getChipset());
-		assertEquals(entities.get(0).getMemorySize(), dtos.get(0).getMemorySize());
-		assertEquals(entities.get(0).getMemoryType(), dtos.get(0).getMemoryType());
-		assertEquals(entities.get(0).getCoreSpeed(), dtos.get(0).getCoreSpeed());
-		assertEquals(entities.get(0).getMemorySpeed(), dtos.get(0).getMemorySpeed());
-		assertEquals(entities.get(0).getConnectorType(), dtos.get(0).getConnectorType());
-		assertEquals(entities.get(1).getChipsetManufacturer(), dtos.get(1).getChipsetManufacturer());
-		assertEquals(entities.get(1).getChipset(), dtos.get(1).getChipset());
-		assertEquals(entities.get(1).getMemorySize(), dtos.get(1).getMemorySize());
-		assertEquals(entities.get(1).getMemoryType(), dtos.get(1).getMemoryType());
-		assertEquals(entities.get(1).getCoreSpeed(), dtos.get(1).getCoreSpeed());
-		assertEquals(entities.get(1).getMemorySpeed(), dtos.get(1).getMemorySpeed());
-		assertEquals(entities.get(1).getConnectorType(), dtos.get(1).getConnectorType());
+		assertEquals(entitites.size(), dtos.size());
+
+		assertEquals(entitites.get(0).getId(), dtos.get(0).getId());
+		assertEquals(entitites.get(0).getImage().getId(), dtos.get(0).getImageId());
+		assertEquals(mainAttributes1.size(), dtos.get(0).getMainAttributes().size());
+		assertEquals(mainAttributes1.get(0).getName(), dtos.get(0).getMainAttributes().get("chipsetManufacturer").getName());
+		assertEquals(mainAttributes1.get(0).getValue(), dtos.get(0).getMainAttributes().get("chipsetManufacturer").getValue());
+		assertEquals(mainAttributes1.get(1).getName(), dtos.get(0).getMainAttributes().get("chipset").getName());
+		assertEquals(mainAttributes1.get(1).getValue(), dtos.get(0).getMainAttributes().get("chipset").getValue());
+		assertEquals(additionalAttributes1.size(), dtos.get(0).getAdditionalAttributes().size());
+		assertEquals(additionalAttributes1.get(0).getName(), dtos.get(0).getAdditionalAttributes().get("coreSpeed").getName());
+		assertEquals(additionalAttributes1.get(0).getValue(), dtos.get(0).getAdditionalAttributes().get("coreSpeed").getValue());
+		assertEquals(additionalAttributes1.get(1).getName(), dtos.get(0).getAdditionalAttributes().get("memorySpeed").getName());
+		assertEquals(additionalAttributes1.get(1).getValue(), dtos.get(0).getAdditionalAttributes().get("memorySpeed").getValue());
+
+		assertEquals(entitites.get(1).getId(), dtos.get(1).getId());
+		assertEquals(entitites.get(1).getImage().getId(), dtos.get(1).getImageId());
+		assertEquals(mainAttributes2.size(), dtos.get(1).getMainAttributes().size());
+		assertEquals(mainAttributes2.get(0).getName(), dtos.get(1).getMainAttributes().get("chipsetManufacturer").getName());
+		assertEquals(mainAttributes2.get(0).getValue(), dtos.get(1).getMainAttributes().get("chipsetManufacturer").getValue());
+		assertEquals(mainAttributes2.get(1).getName(), dtos.get(1).getMainAttributes().get("chipset").getName());
+		assertEquals(mainAttributes2.get(1).getValue(), dtos.get(1).getMainAttributes().get("chipset").getValue());
+		assertEquals(additionalAttributes2.size(), dtos.get(1).getAdditionalAttributes().size());
+		assertEquals(additionalAttributes2.get(0).getName(), dtos.get(1).getAdditionalAttributes().get("coreSpeed").getName());
+		assertEquals(additionalAttributes2.get(0).getValue(), dtos.get(1).getAdditionalAttributes().get("coreSpeed").getValue());
+		assertEquals(additionalAttributes2.get(1).getName(), dtos.get(1).getAdditionalAttributes().get("memorySpeed").getName());
+		assertEquals(additionalAttributes2.get(1).getValue(), dtos.get(1).getAdditionalAttributes().get("memorySpeed").getValue());
 	}
 }

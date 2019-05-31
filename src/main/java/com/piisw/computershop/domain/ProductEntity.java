@@ -1,9 +1,9 @@
 package com.piisw.computershop.domain;
 
 import lombok.*;
-import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "PRODUCTS")
@@ -11,9 +11,8 @@ import javax.persistence.*;
 @AllArgsConstructor
 @Getter
 @Setter
-@SuperBuilder
-@Inheritance(strategy = InheritanceType.JOINED)
-public abstract class ProductEntity {
+@Builder
+public class ProductEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "product_generator")
@@ -23,4 +22,7 @@ public abstract class ProductEntity {
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "image_id")
 	private Image image;
+
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "productEntity")
+	private List<ProductAttrEntity> productAttrEntities;
 }
