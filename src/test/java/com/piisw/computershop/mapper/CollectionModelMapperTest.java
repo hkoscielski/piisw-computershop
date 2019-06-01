@@ -25,7 +25,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 import static org.junit.Assert.assertEquals;
@@ -38,19 +37,21 @@ public class CollectionModelMapperTest {
 
 		@Bean
 		public ExpressionMap<ProductEntity, ProductResponseDTO> productEntityToDtoMapping() {
-			Converter<List<ProductAttrEntity>, Map<String, AttributeDTO>> mainAttrToNameAndValueMappingConverter =
+			Converter<List<ProductAttrEntity>, List<AttributeDTO>> mainAttrConverter =
 					context -> context.getSource().stream()
 							.filter(ProductAttrEntity::getIsMain)
-							.collect(Collectors.toMap(ProductAttrEntity::getCode, productAttrEntity -> new AttributeDTO(productAttrEntity.getName(), productAttrEntity.getValue())));
-			Converter<List<ProductAttrEntity>, Map<String, AttributeDTO>> additionalAttrToNameAndValueMappingConverter =
+							.map(attr -> new AttributeDTO(attr.getName(), attr.getValue()))
+							.collect(Collectors.toList());
+			Converter<List<ProductAttrEntity>, List<AttributeDTO>> additionalAttrConverter =
 					context -> context.getSource().stream()
 							.filter(attr -> !attr.getIsMain())
-							.collect(Collectors.toMap(ProductAttrEntity::getCode, productAttrEntity -> new AttributeDTO(productAttrEntity.getName(), productAttrEntity.getValue())));
+							.map(attr -> new AttributeDTO(attr.getName(), attr.getValue()))
+							.collect(Collectors.toList());
 
 			return mapping -> {
-				mapping.using(mainAttrToNameAndValueMappingConverter)
+				mapping.using(mainAttrConverter)
 						.map(ProductEntity::getProductAttrEntities, ProductResponseDTO::setMainAttributes);
-				mapping.using(additionalAttrToNameAndValueMappingConverter)
+				mapping.using(additionalAttrConverter)
 						.map(ProductEntity::getProductAttrEntities, ProductResponseDTO::setAdditionalAttributes);
 			};
 		}
@@ -97,16 +98,16 @@ public class CollectionModelMapperTest {
 		assertEquals(entity.getImage().getId(), dto.getId());
 
 		assertEquals(mainAttributes.size(), dto.getMainAttributes().size());
-		assertEquals(mainAttributes.get(0).getName(), dto.getMainAttributes().get("chipsetManufacturer").getName());
-		assertEquals(mainAttributes.get(0).getValue(), dto.getMainAttributes().get("chipsetManufacturer").getValue());
-		assertEquals(mainAttributes.get(1).getName(), dto.getMainAttributes().get("chipset").getName());
-		assertEquals(mainAttributes.get(1).getValue(), dto.getMainAttributes().get("chipset").getValue());
+		assertEquals(mainAttributes.get(0).getName(), dto.getMainAttributes().get(0).getName());
+		assertEquals(mainAttributes.get(0).getValue(), dto.getMainAttributes().get(0).getValue());
+		assertEquals(mainAttributes.get(1).getName(), dto.getMainAttributes().get(1).getName());
+		assertEquals(mainAttributes.get(1).getValue(), dto.getMainAttributes().get(1).getValue());
 
 		assertEquals(additionalAttributes.size(), dto.getAdditionalAttributes().size());
-		assertEquals(additionalAttributes.get(0).getName(), dto.getAdditionalAttributes().get("coreSpeed").getName());
-		assertEquals(additionalAttributes.get(0).getValue(), dto.getAdditionalAttributes().get("coreSpeed").getValue());
-		assertEquals(additionalAttributes.get(1).getName(), dto.getAdditionalAttributes().get("memorySpeed").getName());
-		assertEquals(additionalAttributes.get(1).getValue(), dto.getAdditionalAttributes().get("memorySpeed").getValue());
+		assertEquals(additionalAttributes.get(0).getName(), dto.getAdditionalAttributes().get(0).getName());
+		assertEquals(additionalAttributes.get(0).getValue(), dto.getAdditionalAttributes().get(0).getValue());
+		assertEquals(additionalAttributes.get(1).getName(), dto.getAdditionalAttributes().get(1).getName());
+		assertEquals(additionalAttributes.get(1).getValue(), dto.getAdditionalAttributes().get(1).getValue());
 	}
 
 	@Test
@@ -153,28 +154,28 @@ public class CollectionModelMapperTest {
 		assertEquals(entitiesPageContent.get(0).getId(), dtosPageContent.get(0).getId());
 		assertEquals(entitiesPageContent.get(0).getImage().getId(), dtosPageContent.get(0).getImageId());
 		assertEquals(mainAttributes1.size(), dtosPageContent.get(0).getMainAttributes().size());
-		assertEquals(mainAttributes1.get(0).getName(), dtosPageContent.get(0).getMainAttributes().get("chipsetManufacturer").getName());
-		assertEquals(mainAttributes1.get(0).getValue(), dtosPageContent.get(0).getMainAttributes().get("chipsetManufacturer").getValue());
-		assertEquals(mainAttributes1.get(1).getName(), dtosPageContent.get(0).getMainAttributes().get("chipset").getName());
-		assertEquals(mainAttributes1.get(1).getValue(), dtosPageContent.get(0).getMainAttributes().get("chipset").getValue());
+		assertEquals(mainAttributes1.get(0).getName(), dtosPageContent.get(0).getMainAttributes().get(0).getName());
+		assertEquals(mainAttributes1.get(0).getValue(), dtosPageContent.get(0).getMainAttributes().get(0).getValue());
+		assertEquals(mainAttributes1.get(1).getName(), dtosPageContent.get(0).getMainAttributes().get(1).getName());
+		assertEquals(mainAttributes1.get(1).getValue(), dtosPageContent.get(0).getMainAttributes().get(1).getValue());
 		assertEquals(additionalAttributes1.size(), dtosPageContent.get(0).getAdditionalAttributes().size());
-		assertEquals(additionalAttributes1.get(0).getName(), dtosPageContent.get(0).getAdditionalAttributes().get("coreSpeed").getName());
-		assertEquals(additionalAttributes1.get(0).getValue(), dtosPageContent.get(0).getAdditionalAttributes().get("coreSpeed").getValue());
-		assertEquals(additionalAttributes1.get(1).getName(), dtosPageContent.get(0).getAdditionalAttributes().get("memorySpeed").getName());
-		assertEquals(additionalAttributes1.get(1).getValue(), dtosPageContent.get(0).getAdditionalAttributes().get("memorySpeed").getValue());
+		assertEquals(additionalAttributes1.get(0).getName(), dtosPageContent.get(0).getAdditionalAttributes().get(0).getName());
+		assertEquals(additionalAttributes1.get(0).getValue(), dtosPageContent.get(0).getAdditionalAttributes().get(0).getValue());
+		assertEquals(additionalAttributes1.get(1).getName(), dtosPageContent.get(0).getAdditionalAttributes().get(1).getName());
+		assertEquals(additionalAttributes1.get(1).getValue(), dtosPageContent.get(0).getAdditionalAttributes().get(1).getValue());
 
 		assertEquals(entitiesPageContent.get(1).getId(), dtosPageContent.get(1).getId());
 		assertEquals(entitiesPageContent.get(1).getImage().getId(), dtosPageContent.get(1).getImageId());
 		assertEquals(mainAttributes2.size(), dtosPageContent.get(1).getMainAttributes().size());
-		assertEquals(mainAttributes2.get(0).getName(), dtosPageContent.get(1).getMainAttributes().get("chipsetManufacturer").getName());
-		assertEquals(mainAttributes2.get(0).getValue(), dtosPageContent.get(1).getMainAttributes().get("chipsetManufacturer").getValue());
-		assertEquals(mainAttributes2.get(1).getName(), dtosPageContent.get(1).getMainAttributes().get("chipset").getName());
-		assertEquals(mainAttributes2.get(1).getValue(), dtosPageContent.get(1).getMainAttributes().get("chipset").getValue());
+		assertEquals(mainAttributes2.get(0).getName(), dtosPageContent.get(1).getMainAttributes().get(0).getName());
+		assertEquals(mainAttributes2.get(0).getValue(), dtosPageContent.get(1).getMainAttributes().get(0).getValue());
+		assertEquals(mainAttributes2.get(1).getName(), dtosPageContent.get(1).getMainAttributes().get(1).getName());
+		assertEquals(mainAttributes2.get(1).getValue(), dtosPageContent.get(1).getMainAttributes().get(1).getValue());
 		assertEquals(additionalAttributes2.size(), dtosPageContent.get(1).getAdditionalAttributes().size());
-		assertEquals(additionalAttributes2.get(0).getName(), dtosPageContent.get(1).getAdditionalAttributes().get("coreSpeed").getName());
-		assertEquals(additionalAttributes2.get(0).getValue(), dtosPageContent.get(1).getAdditionalAttributes().get("coreSpeed").getValue());
-		assertEquals(additionalAttributes2.get(1).getName(), dtosPageContent.get(1).getAdditionalAttributes().get("memorySpeed").getName());
-		assertEquals(additionalAttributes2.get(1).getValue(), dtosPageContent.get(1).getAdditionalAttributes().get("memorySpeed").getValue());
+		assertEquals(additionalAttributes2.get(0).getName(), dtosPageContent.get(1).getAdditionalAttributes().get(0).getName());
+		assertEquals(additionalAttributes2.get(0).getValue(), dtosPageContent.get(1).getAdditionalAttributes().get(0).getValue());
+		assertEquals(additionalAttributes2.get(1).getName(), dtosPageContent.get(1).getAdditionalAttributes().get(1).getName());
+		assertEquals(additionalAttributes2.get(1).getValue(), dtosPageContent.get(1).getAdditionalAttributes().get(1).getValue());
 	}
 
 	@Test
@@ -217,27 +218,27 @@ public class CollectionModelMapperTest {
 		assertEquals(entitites.get(0).getId(), dtos.get(0).getId());
 		assertEquals(entitites.get(0).getImage().getId(), dtos.get(0).getImageId());
 		assertEquals(mainAttributes1.size(), dtos.get(0).getMainAttributes().size());
-		assertEquals(mainAttributes1.get(0).getName(), dtos.get(0).getMainAttributes().get("chipsetManufacturer").getName());
-		assertEquals(mainAttributes1.get(0).getValue(), dtos.get(0).getMainAttributes().get("chipsetManufacturer").getValue());
-		assertEquals(mainAttributes1.get(1).getName(), dtos.get(0).getMainAttributes().get("chipset").getName());
-		assertEquals(mainAttributes1.get(1).getValue(), dtos.get(0).getMainAttributes().get("chipset").getValue());
+		assertEquals(mainAttributes1.get(0).getName(), dtos.get(0).getMainAttributes().get(0).getName());
+		assertEquals(mainAttributes1.get(0).getValue(), dtos.get(0).getMainAttributes().get(0).getValue());
+		assertEquals(mainAttributes1.get(1).getName(), dtos.get(0).getMainAttributes().get(1).getName());
+		assertEquals(mainAttributes1.get(1).getValue(), dtos.get(0).getMainAttributes().get(1).getValue());
 		assertEquals(additionalAttributes1.size(), dtos.get(0).getAdditionalAttributes().size());
-		assertEquals(additionalAttributes1.get(0).getName(), dtos.get(0).getAdditionalAttributes().get("coreSpeed").getName());
-		assertEquals(additionalAttributes1.get(0).getValue(), dtos.get(0).getAdditionalAttributes().get("coreSpeed").getValue());
-		assertEquals(additionalAttributes1.get(1).getName(), dtos.get(0).getAdditionalAttributes().get("memorySpeed").getName());
-		assertEquals(additionalAttributes1.get(1).getValue(), dtos.get(0).getAdditionalAttributes().get("memorySpeed").getValue());
+		assertEquals(additionalAttributes1.get(0).getName(), dtos.get(0).getAdditionalAttributes().get(0).getName());
+		assertEquals(additionalAttributes1.get(0).getValue(), dtos.get(0).getAdditionalAttributes().get(0).getValue());
+		assertEquals(additionalAttributes1.get(1).getName(), dtos.get(0).getAdditionalAttributes().get(1).getName());
+		assertEquals(additionalAttributes1.get(1).getValue(), dtos.get(0).getAdditionalAttributes().get(1).getValue());
 
 		assertEquals(entitites.get(1).getId(), dtos.get(1).getId());
 		assertEquals(entitites.get(1).getImage().getId(), dtos.get(1).getImageId());
 		assertEquals(mainAttributes2.size(), dtos.get(1).getMainAttributes().size());
-		assertEquals(mainAttributes2.get(0).getName(), dtos.get(1).getMainAttributes().get("chipsetManufacturer").getName());
-		assertEquals(mainAttributes2.get(0).getValue(), dtos.get(1).getMainAttributes().get("chipsetManufacturer").getValue());
-		assertEquals(mainAttributes2.get(1).getName(), dtos.get(1).getMainAttributes().get("chipset").getName());
-		assertEquals(mainAttributes2.get(1).getValue(), dtos.get(1).getMainAttributes().get("chipset").getValue());
+		assertEquals(mainAttributes2.get(0).getName(), dtos.get(1).getMainAttributes().get(0).getName());
+		assertEquals(mainAttributes2.get(0).getValue(), dtos.get(1).getMainAttributes().get(0).getValue());
+		assertEquals(mainAttributes2.get(1).getName(), dtos.get(1).getMainAttributes().get(1).getName());
+		assertEquals(mainAttributes2.get(1).getValue(), dtos.get(1).getMainAttributes().get(1).getValue());
 		assertEquals(additionalAttributes2.size(), dtos.get(1).getAdditionalAttributes().size());
-		assertEquals(additionalAttributes2.get(0).getName(), dtos.get(1).getAdditionalAttributes().get("coreSpeed").getName());
-		assertEquals(additionalAttributes2.get(0).getValue(), dtos.get(1).getAdditionalAttributes().get("coreSpeed").getValue());
-		assertEquals(additionalAttributes2.get(1).getName(), dtos.get(1).getAdditionalAttributes().get("memorySpeed").getName());
-		assertEquals(additionalAttributes2.get(1).getValue(), dtos.get(1).getAdditionalAttributes().get("memorySpeed").getValue());
+		assertEquals(additionalAttributes2.get(0).getName(), dtos.get(1).getAdditionalAttributes().get(0).getName());
+		assertEquals(additionalAttributes2.get(0).getValue(), dtos.get(1).getAdditionalAttributes().get(0).getValue());
+		assertEquals(additionalAttributes2.get(1).getName(), dtos.get(1).getAdditionalAttributes().get(1).getName());
+		assertEquals(additionalAttributes2.get(1).getValue(), dtos.get(1).getAdditionalAttributes().get(1).getValue());
 	}
 }

@@ -13,7 +13,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
 
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 @Configuration
@@ -21,19 +20,21 @@ public class MappingConfiguration {
 
 	@Bean
 	public ExpressionMap<ProductEntity, ProductResponseDTO> productEntityToDtoMapping() {
-		Converter<List<ProductAttrEntity>, Map<String, AttributeDTO>> mainAttrToNameAndValueMappingConverter =
+		Converter<List<ProductAttrEntity>, List<AttributeDTO>> mainAttrConverter =
 				context -> context.getSource().stream()
 						.filter(ProductAttrEntity::getIsMain)
-						.collect(Collectors.toMap(ProductAttrEntity::getCode, productAttrEntity -> new AttributeDTO(productAttrEntity.getName(), productAttrEntity.getValue())));
-		Converter<List<ProductAttrEntity>, Map<String, AttributeDTO>> additionalAttrToNameAndValueMappingConverter =
+						.map(attr -> new AttributeDTO(attr.getName(), attr.getValue()))
+						.collect(Collectors.toList());
+		Converter<List<ProductAttrEntity>, List<AttributeDTO>> additionalAttrConverter =
 				context -> context.getSource().stream()
 						.filter(attr -> !attr.getIsMain())
-						.collect(Collectors.toMap(ProductAttrEntity::getCode, productAttrEntity -> new AttributeDTO(productAttrEntity.getName(), productAttrEntity.getValue())));
+						.map(attr -> new AttributeDTO(attr.getName(), attr.getValue()))
+						.collect(Collectors.toList());
 
 		return mapping -> {
-			mapping.using(mainAttrToNameAndValueMappingConverter)
+			mapping.using(mainAttrConverter)
 					.map(ProductEntity::getProductAttrEntities, ProductResponseDTO::setMainAttributes);
-			mapping.using(additionalAttrToNameAndValueMappingConverter)
+			mapping.using(additionalAttrConverter)
 					.map(ProductEntity::getProductAttrEntities, ProductResponseDTO::setAdditionalAttributes);
 		};
 	}

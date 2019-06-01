@@ -5,7 +5,7 @@ import com.piisw.computershop.payload.AttributeDTO;
 import lombok.*;
 
 import javax.validation.constraints.NotNull;
-import java.util.Map;
+import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -22,8 +22,8 @@ public class ProductResponseDTO {
 	private Long imageId;
 
 	@NotNull
-	private Map<String, AttributeDTO> mainAttributes;
+	private List<AttributeDTO> mainAttributes;
 
 	@NotNull
-	private Map<String, AttributeDTO> additionalAttributes;
+	private List<AttributeDTO> additionalAttributes;
 }

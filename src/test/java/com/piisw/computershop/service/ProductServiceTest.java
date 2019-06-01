@@ -1,6 +1,5 @@
 package com.piisw.computershop.service;
 
-import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Iterables;
 import com.piisw.computershop.domain.CategoryEntity;
 import com.piisw.computershop.domain.Image;
@@ -23,12 +22,14 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
 
 import static org.hamcrest.Matchers.everyItem;
 import static org.hamcrest.Matchers.notNullValue;
 import static org.junit.Assert.*;
-import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 
@@ -73,25 +74,25 @@ public class ProductServiceTest {
 		);
 		entity2.setProductAttrEntities(Lists.newArrayList(Iterables.concat(mainAttributes2, additionalAttributes2)));
 
-		Map<String, AttributeDTO> mainAttributesMap1 = ImmutableMap.<String, AttributeDTO>builder()
-				.put("chipsetManufacturer", new AttributeDTO("Chipset manufacturer", "NVIDIA"))
-				.put("chipset", new AttributeDTO("Chipset", "GeForce GTX 1050 Ti"))
-				.build();
-		Map<String, AttributeDTO> additionalAttributesMap1 = ImmutableMap.<String, AttributeDTO>builder()
-				.put("coreSpeed", new AttributeDTO("Core speed", "1341 MHz"))
-				.put("", new AttributeDTO("Memory speed", "7008 MHz"))
-				.build();
-		ProductResponseDTO dto1 = new ProductResponseDTO(1L, image1.getId(), mainAttributesMap1, additionalAttributesMap1);
+		List<AttributeDTO> mainAttributesDtos1 = Arrays.asList(
+				new AttributeDTO("Chipset manufacturer", "NVIDIA"),
+				new AttributeDTO("Chipset", "GeForce GTX 1050 Ti")
+		);
+		List<AttributeDTO> additionalAttributesDtos1 = Arrays.asList(
+				new AttributeDTO("Core speed", "1341 MHz"),
+				new AttributeDTO("Memory speed", "7008 MHz")
+		);
+		ProductResponseDTO dto1 = new ProductResponseDTO(1L, image1.getId(), mainAttributesDtos1, additionalAttributesDtos1);
 
-		Map<String, AttributeDTO> mainAttributesMap2 = ImmutableMap.<String, AttributeDTO>builder()
-				.put("chipsetManufacturer", new AttributeDTO("Chipset manufacturer", "AMD"))
-				.put("chipset", new AttributeDTO("Chipset", "Radeon RX 590"))
-				.build();
-		Map<String, AttributeDTO> additionalAttributesMap2 = ImmutableMap.<String, AttributeDTO>builder()
-				.put("coreSpeed", new AttributeDTO("Core speed", "1565 MHz"))
-				.put("", new AttributeDTO("Memory speed", "8000 MHz"))
-				.build();
-		ProductResponseDTO dto2 = new ProductResponseDTO(2L, image2.getId(), mainAttributesMap2, additionalAttributesMap2);
+		List<AttributeDTO> mainAttributesDtos2 = Arrays.asList(
+				new AttributeDTO("Chipset manufacturer", "AMD"),
+				new AttributeDTO("Chipset", "Radeon RX 590")
+		);
+		List<AttributeDTO> additionalAttributesDtos2 = Arrays.asList(
+				new AttributeDTO("Core speed", "1565 MHz"),
+				new AttributeDTO("Memory speed", "8000 MHz")
+		);
+		ProductResponseDTO dto2 = new ProductResponseDTO(2L, image2.getId(), mainAttributesDtos2, additionalAttributesDtos2);
 
 		List<ProductEntity> entitites = Arrays.asList(entity1, entity2);
 		Page<ProductEntity> entitiesPage = new PageImpl<>(entitites, PageRequest.of(1, 20), entitites.size());
@@ -137,15 +138,15 @@ public class ProductServiceTest {
 		);
 		entity2.setProductAttrEntities(Lists.newArrayList(Iterables.concat(mainAttributes2, additionalAttributes2)));
 
-		Map<String, AttributeDTO> mainAttributesMap1 = ImmutableMap.<String, AttributeDTO>builder()
-				.put("chipsetManufacturer", new AttributeDTO("Chipset manufacturer", "NVIDIA"))
-				.put("chipset", new AttributeDTO("Chipset", "GeForce GTX 1050 Ti"))
-				.build();
-		Map<String, AttributeDTO> additionalAttributesMap1 = ImmutableMap.<String, AttributeDTO>builder()
-				.put("coreSpeed", new AttributeDTO("Core speed", "1341 MHz"))
-				.put("", new AttributeDTO("Memory speed", "7008 MHz"))
-				.build();
-		ProductResponseDTO dto1 = new ProductResponseDTO(1L, image1.getId(), mainAttributesMap1, additionalAttributesMap1);
+		List<AttributeDTO> mainAttributesDtos1 = Arrays.asList(
+				new AttributeDTO("Chipset manufacturer", "NVIDIA"),
+				new AttributeDTO("Chipset", "GeForce GTX 1050 Ti")
+		);
+		List<AttributeDTO> additionalAttributesDtos1 = Arrays.asList(
+				new AttributeDTO("Core speed", "1341 MHz"),
+				new AttributeDTO("Memory speed", "7008 MHz")
+		);
+		ProductResponseDTO dto1 = new ProductResponseDTO(1L, image1.getId(), mainAttributesDtos1, additionalAttributesDtos1);
 
 		List<ProductEntity> entitites = Collections.singletonList(entity1);
 		Page<ProductEntity> entitiesPage = new PageImpl<>(entitites, PageRequest.of(1, 20), entitites.size());
@@ -178,15 +179,15 @@ public class ProductServiceTest {
 		);
 		entity.setProductAttrEntities(Lists.newArrayList(Iterables.concat(mainAttributes, additionalAttributes)));
 
-		Map<String, AttributeDTO> mainAttributesMap1 = ImmutableMap.<String, AttributeDTO>builder()
-				.put("chipsetManufacturer", new AttributeDTO("Chipset manufacturer", "NVIDIA"))
-				.put("chipset", new AttributeDTO("Chipset", "GeForce GTX 1050 Ti"))
-				.build();
-		Map<String, AttributeDTO> additionalAttributesMap1 = ImmutableMap.<String, AttributeDTO>builder()
-				.put("coreSpeed", new AttributeDTO("Core speed", "1341 MHz"))
-				.put("memorySpeed", new AttributeDTO("Memory speed", "7008 MHz"))
-				.build();
-		ProductResponseDTO dto1 = new ProductResponseDTO(1L, image.getId(), mainAttributesMap1, additionalAttributesMap1);
+		List<AttributeDTO> mainAttributesDtos1 = Arrays.asList(
+				new AttributeDTO("Chipset manufacturer", "NVIDIA"),
+				new AttributeDTO("Chipset", "GeForce GTX 1050 Ti")
+		);
+		List<AttributeDTO> additionalAttributesDtos1 = Arrays.asList(
+				new AttributeDTO("Core speed", "1341 MHz"),
+				new AttributeDTO("Memory speed", "7008 MHz")
+		);
+		ProductResponseDTO dto1 = new ProductResponseDTO(1L, image.getId(), mainAttributesDtos1, additionalAttributesDtos1);
 
 		given(productRepository.findById(1L)).willReturn(Optional.of(entity));
 		given(collectionModelMapper.map(entity, ProductResponseDTO.class)).willReturn(dto1);
@@ -199,16 +200,16 @@ public class ProductServiceTest {
 		assertEquals(entity.getId(), productResponseDTO.getId());
 		assertEquals(entity.getImage().getId(), productResponseDTO.getImageId());
 		assertEquals(mainAttributes.size(), productResponseDTO.getMainAttributes().size());
-		assertEquals(mainAttributes.get(0).getName(), productResponseDTO.getMainAttributes().get("chipsetManufacturer").getName());
-		assertEquals(mainAttributes.get(0).getValue(), productResponseDTO.getMainAttributes().get("chipsetManufacturer").getValue());
-		assertEquals(mainAttributes.get(1).getName(), productResponseDTO.getMainAttributes().get("chipset").getName());
-		assertEquals(mainAttributes.get(1).getValue(), productResponseDTO.getMainAttributes().get("chipset").getValue());
+		assertEquals(mainAttributes.get(0).getName(), productResponseDTO.getMainAttributes().get(0).getName());
+		assertEquals(mainAttributes.get(0).getValue(), productResponseDTO.getMainAttributes().get(0).getValue());
+		assertEquals(mainAttributes.get(1).getName(), productResponseDTO.getMainAttributes().get(1).getName());
+		assertEquals(mainAttributes.get(1).getValue(), productResponseDTO.getMainAttributes().get(1).getValue());
 
 		assertEquals(additionalAttributes.size(), productResponseDTO.getAdditionalAttributes().size());
-		assertEquals(additionalAttributes.get(0).getName(), productResponseDTO.getAdditionalAttributes().get("coreSpeed").getName());
-		assertEquals(additionalAttributes.get(0).getValue(), productResponseDTO.getAdditionalAttributes().get("coreSpeed").getValue());
-		assertEquals(additionalAttributes.get(1).getName(), productResponseDTO.getAdditionalAttributes().get("memorySpeed").getName());
-		assertEquals(additionalAttributes.get(1).getValue(), productResponseDTO.getAdditionalAttributes().get("memorySpeed").getValue());
+		assertEquals(additionalAttributes.get(0).getName(), productResponseDTO.getAdditionalAttributes().get(0).getName());
+		assertEquals(additionalAttributes.get(0).getValue(), productResponseDTO.getAdditionalAttributes().get(0).getValue());
+		assertEquals(additionalAttributes.get(1).getName(), productResponseDTO.getAdditionalAttributes().get(1).getName());
+		assertEquals(additionalAttributes.get(1).getValue(), productResponseDTO.getAdditionalAttributes().get(1).getValue());
 	}
 
 	@Test(expected = ResourceNotFoundException.class)
@@ -227,15 +228,15 @@ public class ProductServiceTest {
 		);
 		entity.setProductAttrEntities(Lists.newArrayList(Iterables.concat(mainAttributes, additionalAttributes)));
 
-		Map<String, AttributeDTO> mainAttributesMap1 = ImmutableMap.<String, AttributeDTO>builder()
-				.put("chipsetManufacturer", new AttributeDTO("Chipset manufacturer", "NVIDIA"))
-				.put("chipset", new AttributeDTO("Chipset", "GeForce GTX 1050 Ti"))
-				.build();
-		Map<String, AttributeDTO> additionalAttributesMap1 = ImmutableMap.<String, AttributeDTO>builder()
-				.put("coreSpeed", new AttributeDTO("Core speed", "1341 MHz"))
-				.put("memorySpeed", new AttributeDTO("Memory speed", "7008 MHz"))
-				.build();
-		ProductResponseDTO dto1 = new ProductResponseDTO(1L, image.getId(), mainAttributesMap1, additionalAttributesMap1);
+		List<AttributeDTO> mainAttributesDtos1 = Arrays.asList(
+				new AttributeDTO("Chipset manufacturer", "NVIDIA"),
+				new AttributeDTO("Chipset", "GeForce GTX 1050 Ti")
+		);
+		List<AttributeDTO> additionalAttributesDtos1 = Arrays.asList(
+				new AttributeDTO("Core speed", "1341 MHz"),
+				new AttributeDTO("Memory speed", "7008 MHz")
+		);
+		ProductResponseDTO dto1 = new ProductResponseDTO(1L, image.getId(), mainAttributesDtos1, additionalAttributesDtos1);
 
 		given(productRepository.findById(1L)).willReturn(Optional.empty());
 
