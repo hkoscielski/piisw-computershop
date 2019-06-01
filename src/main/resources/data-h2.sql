@@ -17,12 +17,12 @@ values
     (category_seq.nextval, 'Storages'),
     (category_seq.nextval, 'RAM');
 
-insert into products (id, image_id)
+insert into products (id, image_id, category_id)
 values
-    (product_seq.nextval, null),
-    (product_seq.nextval, null),
-    (product_seq.nextval, 1),
-    (product_seq.nextval, 2);
+    (product_seq.nextval, null, 1),
+    (product_seq.nextval, null, 2),
+    (product_seq.nextval, 1, 3),
+    (product_seq.nextval, 2, 3);
 
 insert into products_attr (id, code, name, value, is_main, product_id)
 values

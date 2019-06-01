@@ -1,6 +1,7 @@
 package com.piisw.computershop.mapper;
 
 import com.google.common.collect.Iterables;
+import com.piisw.computershop.domain.CategoryEntity;
 import com.piisw.computershop.domain.Image;
 import com.piisw.computershop.domain.ProductAttrEntity;
 import com.piisw.computershop.domain.ProductEntity;
@@ -76,7 +77,8 @@ public class CollectionModelMapperTest {
 	public void shouldMapEntityToDto() {
 		//given
 		Image image = new Image(1L, "image1.png", 123123123, "image/png");
-		ProductEntity entity = new ProductEntity(1L, image, Collections.emptyList());
+		CategoryEntity category = new CategoryEntity(1L, "Accessories");
+		ProductEntity entity = new ProductEntity(1L, category, image, Collections.emptyList());
 		List<ProductAttrEntity> mainAttributes = Arrays.asList(
 				new ProductAttrEntity(1L, "chipsetManufacturer", "Chipset manufacturer", "NVIDIA", true, entity),
 				new ProductAttrEntity(2L, "chipset", "Chipset", "GeForce GTX 1050 Ti", true, entity)
@@ -111,7 +113,8 @@ public class CollectionModelMapperTest {
 	public void shouldMapPageEntityToPageDto() {
 		//given
 		Image image1 = new Image(1L, "image1.png", 123123123, "image/png");
-		ProductEntity entity1 = new ProductEntity(1L, image1, Collections.emptyList());
+		CategoryEntity category1 = new CategoryEntity(1L, "Accessories");
+		ProductEntity entity1 = new ProductEntity(1L, category1, image1, Collections.emptyList());
 		List<ProductAttrEntity> mainAttributes1 = Arrays.asList(
 				new ProductAttrEntity(1L, "chipsetManufacturer", "Chipset manufacturer", "NVIDIA", true, entity1),
 				new ProductAttrEntity(2L, "chipset", "Chipset", "GeForce GTX 1050 Ti", true, entity1)
@@ -123,7 +126,8 @@ public class CollectionModelMapperTest {
 		entity1.setProductAttrEntities(Lists.newArrayList(Iterables.concat(mainAttributes1, additionalAttributes1)));
 
 		Image image2 = new Image(2L, "image2.png", 321321, "image/png");
-		ProductEntity entity2 = new ProductEntity(2L, image2, Collections.emptyList());
+		CategoryEntity category2 = new CategoryEntity(2L, "CPU");
+		ProductEntity entity2 = new ProductEntity(2L, category2, image2, Collections.emptyList());
 		List<ProductAttrEntity> mainAttributes2 = Arrays.asList(
 				new ProductAttrEntity(5L, "chipsetManufacturer", "Chipset manufacturer", "AMD", true, entity2),
 				new ProductAttrEntity(6L, "chipset", "Chipset", "Radeon RX 590", true, entity2)
@@ -177,7 +181,8 @@ public class CollectionModelMapperTest {
 	public void shouldMapListEntityToListDto() {
 		//given
 		Image image1 = new Image(1L, "image1.png", 123123123, "image/png");
-		ProductEntity entity1 = new ProductEntity(1L, image1, Collections.emptyList());
+		CategoryEntity category1 = new CategoryEntity(1L, "Accessories");
+		ProductEntity entity1 = new ProductEntity(1L, category1, image1, Collections.emptyList());
 		List<ProductAttrEntity> mainAttributes1 = Arrays.asList(
 				new ProductAttrEntity(1L, "chipsetManufacturer", "Chipset manufacturer", "NVIDIA", true, entity1),
 				new ProductAttrEntity(2L, "chipset", "Chipset", "GeForce GTX 1050 Ti", true, entity1)
@@ -189,7 +194,8 @@ public class CollectionModelMapperTest {
 		entity1.setProductAttrEntities(Lists.newArrayList(Iterables.concat(mainAttributes1, additionalAttributes1)));
 
 		Image image2 = new Image(2L, "image2.png", 321321, "image/png");
-		ProductEntity entity2 = new ProductEntity(2L, image2, Collections.emptyList());
+		CategoryEntity category2 = new CategoryEntity(2L, "CPU");
+		ProductEntity entity2 = new ProductEntity(2L, category2, image2, Collections.emptyList());
 		List<ProductAttrEntity> mainAttributes2 = Arrays.asList(
 				new ProductAttrEntity(5L, "chipsetManufacturer", "Chipset manufacturer", "AMD", true, entity2),
 				new ProductAttrEntity(6L, "chipset", "Chipset", "Radeon RX 590", true, entity2)
