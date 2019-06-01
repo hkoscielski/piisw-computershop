@@ -18,6 +18,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -56,7 +57,7 @@ public class ProductControllerTest {
 				new AttributeDTO("Core speed", "1341 MHz"),
 				new AttributeDTO("Memory speed", "7008 MHz")
 		);
-		ProductResponseDTO dto1 = new ProductResponseDTO(1L, 1L, mainAttributesDtos1, additionalAttributesDtos1);
+		ProductResponseDTO dto1 = new ProductResponseDTO(1L, "NVIDIA GeForce GTX 1050 Ti", new BigDecimal("189.99"), "Graphics cards", 1L, mainAttributesDtos1, additionalAttributesDtos1);
 
 		List<AttributeDTO> mainAttributesDtos2 = Arrays.asList(
 				new AttributeDTO("Chipset manufacturer", "AMD"),
@@ -66,7 +67,7 @@ public class ProductControllerTest {
 				new AttributeDTO("Core speed", "1565 MHz"),
 				new AttributeDTO("Memory speed", "8000 MHz")
 		);
-		ProductResponseDTO dto2 = new ProductResponseDTO(2L, 2L, mainAttributesDtos2, additionalAttributesDtos2);
+		ProductResponseDTO dto2 = new ProductResponseDTO(2L, "AMD Radeon RX 590", new BigDecimal("239.99"), "Graphics cards", 2L, mainAttributesDtos2, additionalAttributesDtos2);
 
 		List<ProductResponseDTO> dtos = Arrays.asList(dto1, dto2);
 		Page<ProductResponseDTO> dtosPage = new PageImpl<>(dtos, PageRequest.of(1, 20), dtos.size());
@@ -91,7 +92,7 @@ public class ProductControllerTest {
 				new AttributeDTO("Core speed", "1341 MHz"),
 				new AttributeDTO("Memory speed", "7008 MHz")
 		);
-		ProductResponseDTO dto1 = new ProductResponseDTO(1L, 1L, mainAttributes, additionalAttributes);
+		ProductResponseDTO dto1 = new ProductResponseDTO(1L, "NVIDIA GeForce GTX 1050 Ti", new BigDecimal("189.99"), "Graphics cards", 1L, mainAttributes, additionalAttributes);
 
 		List<ProductResponseDTO> dtos = Collections.singletonList(dto1);
 		Page<ProductResponseDTO> dtosPage = new PageImpl<>(dtos, PageRequest.of(1, 20), dtos.size());
@@ -117,7 +118,7 @@ public class ProductControllerTest {
 				new AttributeDTO("Core speed", "1341 MHz"),
 				new AttributeDTO("Memory speed", "7008 MHz")
 		);
-		ProductResponseDTO dto = new ProductResponseDTO(1L, 1L, mainAttributes, additionalAttributes);
+		ProductResponseDTO dto = new ProductResponseDTO(1L, "NVIDIA GeForce GTX 1050 Ti", new BigDecimal("189.99"), "Graphics cards", 1L, mainAttributes, additionalAttributes);
 
 		given(productService.findById(any())).willReturn(dto);
 
@@ -140,7 +141,7 @@ public class ProductControllerTest {
 				new AttributeDTO("Core speed", "1341 MHz"),
 				new AttributeDTO("Memory speed", "7008 MHz")
 		);
-		ProductResponseDTO dto = new ProductResponseDTO(1L, 1L, mainAttributes, additionalAttributes);
+		ProductResponseDTO dto = new ProductResponseDTO(1L, "NVIDIA GeForce GTX 1050 Ti", new BigDecimal("189.99"), "Graphics cards", 1L, mainAttributes, additionalAttributes);
 
 		given(productService.findById(any())).willThrow(new ResourceNotFoundException("Product", "id", dto.getId().toString()));
 

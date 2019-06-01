@@ -22,6 +22,7 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -78,8 +79,8 @@ public class CollectionModelMapperTest {
 	public void shouldMapEntityToDto() {
 		//given
 		Image image = new Image(1L, "image1.png", 123123123, "image/png");
-		CategoryEntity category = new CategoryEntity(1L, "Accessories");
-		ProductEntity entity = new ProductEntity(1L, category, image, Collections.emptyList());
+		CategoryEntity category = new CategoryEntity(1L, "Graphics cards");
+		ProductEntity entity = new ProductEntity(1L, "NVIDIA GeForce GTX 1050 Ti", new BigDecimal("189.99"), category, image, Collections.emptyList());
 		List<ProductAttrEntity> mainAttributes = Arrays.asList(
 				new ProductAttrEntity(1L, "chipsetManufacturer", "Chipset manufacturer", "NVIDIA", true, entity),
 				new ProductAttrEntity(2L, "chipset", "Chipset", "GeForce GTX 1050 Ti", true, entity)
@@ -96,6 +97,9 @@ public class CollectionModelMapperTest {
 		//then
 		assertEquals(entity.getId(), dto.getId());
 		assertEquals(entity.getImage().getId(), dto.getId());
+		assertEquals(entity.getName(), dto.getName());
+		assertEquals(entity.getPrice(), dto.getPrice());
+		assertEquals(entity.getCategory().getName(), dto.getCategoryName());
 
 		assertEquals(mainAttributes.size(), dto.getMainAttributes().size());
 		assertEquals(mainAttributes.get(0).getName(), dto.getMainAttributes().get(0).getName());
@@ -114,8 +118,8 @@ public class CollectionModelMapperTest {
 	public void shouldMapPageEntityToPageDto() {
 		//given
 		Image image1 = new Image(1L, "image1.png", 123123123, "image/png");
-		CategoryEntity category1 = new CategoryEntity(1L, "Accessories");
-		ProductEntity entity1 = new ProductEntity(1L, category1, image1, Collections.emptyList());
+		CategoryEntity category1 = new CategoryEntity(1L, "Graphics cards");
+		ProductEntity entity1 = new ProductEntity(1L, "NVIDIA GeForce GTX 1050 Ti", new BigDecimal("189.99"), category1, image1, Collections.emptyList());
 		List<ProductAttrEntity> mainAttributes1 = Arrays.asList(
 				new ProductAttrEntity(1L, "chipsetManufacturer", "Chipset manufacturer", "NVIDIA", true, entity1),
 				new ProductAttrEntity(2L, "chipset", "Chipset", "GeForce GTX 1050 Ti", true, entity1)
@@ -128,7 +132,7 @@ public class CollectionModelMapperTest {
 
 		Image image2 = new Image(2L, "image2.png", 321321, "image/png");
 		CategoryEntity category2 = new CategoryEntity(2L, "CPU");
-		ProductEntity entity2 = new ProductEntity(2L, category2, image2, Collections.emptyList());
+		ProductEntity entity2 = new ProductEntity(2L, "AMD Radeon RX 590", new BigDecimal("239.99"), category2, image2, Collections.emptyList());
 		List<ProductAttrEntity> mainAttributes2 = Arrays.asList(
 				new ProductAttrEntity(5L, "chipsetManufacturer", "Chipset manufacturer", "AMD", true, entity2),
 				new ProductAttrEntity(6L, "chipset", "Chipset", "Radeon RX 590", true, entity2)
@@ -153,6 +157,9 @@ public class CollectionModelMapperTest {
 
 		assertEquals(entitiesPageContent.get(0).getId(), dtosPageContent.get(0).getId());
 		assertEquals(entitiesPageContent.get(0).getImage().getId(), dtosPageContent.get(0).getImageId());
+		assertEquals(entitites.get(0).getName(), dtosPageContent.get(0).getName());
+		assertEquals(entitites.get(0).getPrice(), dtosPageContent.get(0).getPrice());
+		assertEquals(entitites.get(0).getCategory().getName(), dtosPageContent.get(0).getCategoryName());
 		assertEquals(mainAttributes1.size(), dtosPageContent.get(0).getMainAttributes().size());
 		assertEquals(mainAttributes1.get(0).getName(), dtosPageContent.get(0).getMainAttributes().get(0).getName());
 		assertEquals(mainAttributes1.get(0).getValue(), dtosPageContent.get(0).getMainAttributes().get(0).getValue());
@@ -166,6 +173,9 @@ public class CollectionModelMapperTest {
 
 		assertEquals(entitiesPageContent.get(1).getId(), dtosPageContent.get(1).getId());
 		assertEquals(entitiesPageContent.get(1).getImage().getId(), dtosPageContent.get(1).getImageId());
+		assertEquals(entitites.get(1).getName(), dtosPageContent.get(1).getName());
+		assertEquals(entitites.get(1).getPrice(), dtosPageContent.get(1).getPrice());
+		assertEquals(entitites.get(1).getCategory().getName(), dtosPageContent.get(1).getCategoryName());
 		assertEquals(mainAttributes2.size(), dtosPageContent.get(1).getMainAttributes().size());
 		assertEquals(mainAttributes2.get(0).getName(), dtosPageContent.get(1).getMainAttributes().get(0).getName());
 		assertEquals(mainAttributes2.get(0).getValue(), dtosPageContent.get(1).getMainAttributes().get(0).getValue());
@@ -182,8 +192,8 @@ public class CollectionModelMapperTest {
 	public void shouldMapListEntityToListDto() {
 		//given
 		Image image1 = new Image(1L, "image1.png", 123123123, "image/png");
-		CategoryEntity category1 = new CategoryEntity(1L, "Accessories");
-		ProductEntity entity1 = new ProductEntity(1L, category1, image1, Collections.emptyList());
+		CategoryEntity category1 = new CategoryEntity(1L, "Graphics cards");
+		ProductEntity entity1 = new ProductEntity(1L, "NVIDIA GeForce GTX 1050 Ti", new BigDecimal("189.99"), category1, image1, Collections.emptyList());
 		List<ProductAttrEntity> mainAttributes1 = Arrays.asList(
 				new ProductAttrEntity(1L, "chipsetManufacturer", "Chipset manufacturer", "NVIDIA", true, entity1),
 				new ProductAttrEntity(2L, "chipset", "Chipset", "GeForce GTX 1050 Ti", true, entity1)
@@ -196,7 +206,7 @@ public class CollectionModelMapperTest {
 
 		Image image2 = new Image(2L, "image2.png", 321321, "image/png");
 		CategoryEntity category2 = new CategoryEntity(2L, "CPU");
-		ProductEntity entity2 = new ProductEntity(2L, category2, image2, Collections.emptyList());
+		ProductEntity entity2 = new ProductEntity(2L, "AMD Radeon RX 590", new BigDecimal("239.99"), category2, image2, Collections.emptyList());
 		List<ProductAttrEntity> mainAttributes2 = Arrays.asList(
 				new ProductAttrEntity(5L, "chipsetManufacturer", "Chipset manufacturer", "AMD", true, entity2),
 				new ProductAttrEntity(6L, "chipset", "Chipset", "Radeon RX 590", true, entity2)
@@ -217,6 +227,9 @@ public class CollectionModelMapperTest {
 
 		assertEquals(entitites.get(0).getId(), dtos.get(0).getId());
 		assertEquals(entitites.get(0).getImage().getId(), dtos.get(0).getImageId());
+		assertEquals(entitites.get(0).getName(), dtos.get(0).getName());
+		assertEquals(entitites.get(0).getPrice(), dtos.get(0).getPrice());
+		assertEquals(entitites.get(0).getCategory().getName(), dtos.get(0).getCategoryName());
 		assertEquals(mainAttributes1.size(), dtos.get(0).getMainAttributes().size());
 		assertEquals(mainAttributes1.get(0).getName(), dtos.get(0).getMainAttributes().get(0).getName());
 		assertEquals(mainAttributes1.get(0).getValue(), dtos.get(0).getMainAttributes().get(0).getValue());
@@ -230,6 +243,9 @@ public class CollectionModelMapperTest {
 
 		assertEquals(entitites.get(1).getId(), dtos.get(1).getId());
 		assertEquals(entitites.get(1).getImage().getId(), dtos.get(1).getImageId());
+		assertEquals(entitites.get(1).getName(), dtos.get(1).getName());
+		assertEquals(entitites.get(1).getPrice(), dtos.get(1).getPrice());
+		assertEquals(entitites.get(1).getCategory().getName(), dtos.get(1).getCategoryName());
 		assertEquals(mainAttributes2.size(), dtos.get(1).getMainAttributes().size());
 		assertEquals(mainAttributes2.get(0).getName(), dtos.get(1).getMainAttributes().get(0).getName());
 		assertEquals(mainAttributes2.get(0).getValue(), dtos.get(1).getMainAttributes().get(0).getValue());

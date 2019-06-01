@@ -3,6 +3,7 @@ package com.piisw.computershop.domain;
 import lombok.*;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.util.List;
 
 @Entity
@@ -18,6 +19,12 @@ public class ProductEntity {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "product_generator")
 	@SequenceGenerator(name = "product_generator", sequenceName = "product_seq", allocationSize = 1)
 	private Long id;
+
+	@Column(nullable = false)
+	private String name;
+
+	@Column(nullable = false, scale = 2)
+	private BigDecimal price;
 
 	@ManyToOne
 	@JoinColumn(name = "category_id", referencedColumnName = "id", nullable = false)
