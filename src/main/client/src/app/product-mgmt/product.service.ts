@@ -10,32 +10,21 @@ export class ProductService {
   constructor(private httpClient: HttpClient) {
   }
 
-  findGraphicsCardById(id: number): Observable<HttpResponse<GraphicsCard>> {
-    return this.httpClient.get<GraphicsCard>(`/api/graphics-cards/${id}`, { observe: 'response' });
+  findProductById(id: number): Observable<HttpResponse<Product>> {
+    return this.httpClient.get<Product>(`/api/products/${id}`, { observe: 'response' });
   }
 }
 
-export class GraphicsCard {
+export class Product {
   id?: number;
-  chipsetManufacturer: string;
-  chipset: string;
-  memorySize: string;
-  memoryType: string;
-  coreSpeed: string;
-  memorySpeed: string;
-  connectorType: string;
+  name: string;
+  price: number;
+  categoryName: string;
+  mainAttributes: ProductAttr[];
+  additionalAttributes: ProductAttr[];
+}
 
-  constructor(chipsetManufacturer: string, chipset: string,
-              memorySize: string, memoryType: string, coreSpeed: string,
-              memorySpeed: string, connectorType: string, id?: number) {
-
-    this.id = id;
-    this.chipsetManufacturer = chipsetManufacturer;
-    this.chipset = chipset;
-    this.memorySize = memorySize;
-    this.memoryType = memoryType;
-    this.coreSpeed = coreSpeed;
-    this.memorySpeed = memorySpeed;
-    this.connectorType = connectorType;
-  }
+export class ProductAttr {
+  name: string;
+  value: string;
 }

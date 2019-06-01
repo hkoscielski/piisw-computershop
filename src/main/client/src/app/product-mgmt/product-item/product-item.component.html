@@ -10,7 +10,7 @@
     </div>
   </div>
   <div class="container-fluid col" style="width: 40%;">
-    <label class="rounded shadow-lg" style="text-align: center; background-color: lightgrey; width: 100%;">Category BBB • Product XXX</label>
+    <label class="rounded shadow-lg" style="text-align: center; background-color: lightgrey; width: 100%;" *ngIf="currentProduct">{{currentProduct.categoryName}} • {{currentProduct.name}}</label>
     <p></p>
     <div class="card shadow-lg">
       <div class="card-body">
@@ -20,15 +20,13 @@
              class="rounded-lg shadow-sm"
              style="width: 200px; height: 200px;">
         </div>
-        <div class="col">
+        <div class="col" *ngIf="currentProduct">
           <ul class="list-group list-group-flush d-flex">
-            <li class="list-group-item">connectorType: {{currentGraphicsCard.connectorType}}</li>
-            <li class="list-group-item">chipsetManufacturer: {{currentGraphicsCard.chipsetManufacturer}}</li>
-            <li class="list-group-item">chipset: {{currentGraphicsCard.chipset}}</li>
+            <li class="list-group-item" *ngFor="let mainAttr of currentProduct.mainAttributes">{{mainAttr.name}}: {{mainAttr.value}}</li>
           </ul>
         </div>
         <div class="col-form-label-sm ">
-          <button type="button" class="btn btn-success rounded-pill shadow-sm" style="margin: 5px">9999.99$</button>
+          <button type="button" class="btn btn-success rounded-pill shadow-sm" style="margin: 5px" *ngIf="currentProduct">{{currentProduct.price}}$</button>
         </div>
       </div>
       <p></p>
@@ -51,16 +49,9 @@
           </div>
         </div>
         <div class="tab-pane fade" [ngClass]="{active: tab===1, show: tab===1}"  id="list-profile" role="tabpanel" aria-labelledby="list-profile-list">
-          <div class="card">
+          <div class="card" *ngIf="currentProduct">
             <ul class="list-group list-group-flush d-flex">
-<!--              <li class="list-group-item" *ngFor="let param of parameters">{{}}</li>-->
-              <li class="list-group-item">memoryType: {{currentGraphicsCard.memoryType}}</li>
-              <li class="list-group-item">memorySpeed: {{currentGraphicsCard.memorySpeed}}</li>
-              <li class="list-group-item">memorySize: {{currentGraphicsCard.memorySize}}</li>
-              <li class="list-group-item">coreSpeed: {{currentGraphicsCard.coreSpeed}}</li>
-              <li class="list-group-item">connectorType: {{currentGraphicsCard.connectorType}}</li>
-              <li class="list-group-item">chipsetManufacturer: {{currentGraphicsCard.chipsetManufacturer}}</li>
-              <li class="list-group-item">chipset: {{currentGraphicsCard.chipset}}</li>
+              <li class="list-group-item" *ngFor="let additionalAttr of currentProduct.additionalAttributes">{{additionalAttr.name}}: {{additionalAttr.value}}</li>
             </ul>
           </div>
         </div>
