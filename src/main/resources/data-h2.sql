@@ -1,11 +1,21 @@
+alter sequence image_seq restart with 1;
+alter sequence category_seq restart with 1;
 alter sequence product_seq restart with 1;
 alter sequence product_attr_seq restart with 1;
-alter sequence image_seq restart with 1;
 
 insert into images (id, content_id, content_length, mime_type)
 values
     (image_seq.nextval, 'image1.png', 32131312, 'image/png'),
     (image_seq.nextval, 'image2.png', 12312312, 'image/png');
+
+insert into categories (id, name)
+values
+    (category_seq.nextval, 'Accessories'),
+    (category_seq.nextval, 'CPU'),
+    (category_seq.nextval, 'Graphics cards'),
+    (category_seq.nextval, 'Monitors'),
+    (category_seq.nextval, 'Storages'),
+    (category_seq.nextval, 'RAM');
 
 insert into products (id, image_id)
 values
