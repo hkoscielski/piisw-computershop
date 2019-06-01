@@ -12,10 +12,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api")
@@ -31,8 +28,18 @@ public class ProductController {
 	private ImageRepository imageRepository;
 
 	@GetMapping("/products")
-	public ResponseEntity<Page<ProductResponseDTO>> getProducts(Pageable pageable) {
-		Page<ProductResponseDTO> products = productService.findAll(pageable);
+	public ResponseEntity<Page<ProductResponseDTO>> getProducts(
+			@RequestParam(value = "categoryId", required = false) Long categoryId,
+			Pageable pageable) {
+
+		Page<ProductResponseDTO> products;
+
+		if (categoryId == null) {
+			products = productService.findAll(pageable);
+		} else {
+			products = productService.findAllByCategory(categoryId, pageable);
+		}
+
 		return ResponseEntity.ok(products);
 	}
 

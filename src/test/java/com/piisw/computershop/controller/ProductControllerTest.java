@@ -20,6 +20,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -79,6 +80,32 @@ public class ProductControllerTest {
 				.andExpect(status().isOk())
 				.andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
 				.andExpect(jsonPath("$.content", hasSize(2)));
+	}
+
+	@Test
+	public void shouldReturnProductsForGivenCategory() throws Exception {
+		//given
+		Map<String, AttributeDTO> mainAttributesMap1 = ImmutableMap.<String, AttributeDTO>builder()
+				.put("chipsetManufacturer", new AttributeDTO("Chipset manufacturer", "NVIDIA"))
+				.put("chipset", new AttributeDTO("Chipset", "GeForce GTX 1050 Ti"))
+				.build();
+		Map<String, AttributeDTO> additionalAttributesMap1 = ImmutableMap.<String, AttributeDTO>builder()
+				.put("coreSpeed", new AttributeDTO("Core speed", "1341 MHz"))
+				.put("", new AttributeDTO("Memory speed", "7008 MHz"))
+				.build();
+		ProductResponseDTO dto1 = new ProductResponseDTO(1L, 1L, mainAttributesMap1, additionalAttributesMap1);
+
+		List<ProductResponseDTO> dtos = Collections.singletonList(dto1);
+		Page<ProductResponseDTO> dtosPage = new PageImpl<>(dtos, PageRequest.of(1, 20), dtos.size());
+		given(productService.findAllByCategory(any(), any())).willReturn(dtosPage);
+
+		//when
+		mockMvc.perform(get("/api/products")
+				.param("categoryId", "3"))
+				//then
+				.andExpect(status().isOk())
+				.andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+				.andExpect(jsonPath("$.content", hasSize(1)));
 	}
 
 	@Test

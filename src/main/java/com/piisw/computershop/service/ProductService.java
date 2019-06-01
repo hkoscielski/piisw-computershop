@@ -27,6 +27,11 @@ public class ProductService {
 		return collectionModelMapper.mapPage(productEntityPage, ProductResponseDTO.class);
 	}
 
+	public Page<ProductResponseDTO> findAllByCategory(Long categoryId, Pageable pageable) {
+		Page<ProductEntity> productEntityPage = productRepository.findAllByCategoryId(categoryId, pageable);
+		return collectionModelMapper.mapPage(productEntityPage, ProductResponseDTO.class);
+	}
+
 	public ProductResponseDTO findById(Long id) {
 		return productRepository.findById(id)
 				.map(product -> collectionModelMapper.map(product, ProductResponseDTO.class))
