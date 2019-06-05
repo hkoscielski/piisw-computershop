@@ -23,4 +23,10 @@ public class CategoryController {
 		Page<CategoryResponseDTO> categories = categoryService.findAll(pageable);
 		return ResponseEntity.ok(categories);
 	}
+
+	@GetMapping("/categories/{categoryId}")
+	public ResponseEntity<CategoryResponseDTO> getCategory(@PathVariable("categoryId") Long categoryId) {
+		CategoryResponseDTO category = categoryService.findById(categoryId);
+		return ResponseEntity.ok(category);
+	}
 }

@@ -1,6 +1,7 @@
 package com.piisw.computershop.service;
 
 import com.piisw.computershop.domain.CategoryEntity;
+import com.piisw.computershop.exception.ResourceNotFoundException;
 import com.piisw.computershop.mapper.CollectionModelMapper;
 import com.piisw.computershop.payload.response.CategoryResponseDTO;
 import com.piisw.computershop.repository.CategoryRepository;
@@ -24,5 +25,11 @@ public class CategoryService {
 	public Page<CategoryResponseDTO> findAll(Pageable pageable) {
 		Page<CategoryEntity> categoryEntityPage = categoryRepository.findAll(pageable);
 		return collectionModelMapper.mapPage(categoryEntityPage, CategoryResponseDTO.class);
+	}
+
+	public CategoryResponseDTO findById(Long id) {
+		return categoryRepository.findById(id)
+				.map(category -> collectionModelMapper.map(category, CategoryResponseDTO.class))
+				.orElseThrow(() -> new ResourceNotFoundException("Category", "id", id.toString()));
 	}
 }

@@ -1,5 +1,6 @@
 package com.piisw.computershop.controller;
 
+import com.piisw.computershop.exception.ResourceNotFoundException;
 import com.piisw.computershop.payload.response.CategoryResponseDTO;
 import com.piisw.computershop.service.CategoryService;
 import org.junit.Test;
@@ -18,6 +19,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import static org.hamcrest.Matchers.hasSize;
+import static org.hamcrest.Matchers.is;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -50,5 +52,32 @@ public class CategoryControllerTest {
 				.andExpect(status().isOk())
 				.andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
 				.andExpect(jsonPath("$.content", hasSize(3)));
+	}
+
+	@Test
+	public void shouldReturnCategory() throws Exception {
+		//given
+		CategoryResponseDTO dto = new CategoryResponseDTO(1L, "Accessories");
+		given(categoryService.findById(any())).willReturn(dto);
+
+		//when
+		mockMvc.perform(get(String.format("/api/products/categories/%d", dto.getId().intValue())))
+				//then
+				.andExpect(status().isOk())
+				.andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+				.andExpect(jsonPath("$.id", is(1)));
+	}
+
+	@Test
+	public void shouldNotReturnCategory() throws Exception {
+		//given
+		CategoryResponseDTO dto = new CategoryResponseDTO(10L, "Unknown");
+		given(categoryService.findById(any())).willThrow(new ResourceNotFoundException("Category", "id", dto.getId().toString()));
+
+		//when
+		mockMvc.perform(get(String.format("/api/products/categories/%d", dto.getId().intValue())))
+				//then
+				.andExpect(status().isNotFound())
+				.andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE));
 	}
 }
