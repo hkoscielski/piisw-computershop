@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import {Category, CategoryService} from "../category.service";
+import {Product, ProductService} from "../product.service";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-product-category',
@@ -7,9 +10,33 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProductCategoryComponent implements OnInit {
 
-  constructor() { }
+  currentCategory: Category;
+  currentProductList: Product[];
+  currentCategoryId: number;
+
+  constructor(public categoryService: CategoryService, public productService: ProductService, public route: ActivatedRoute) {
+  }
 
   ngOnInit() {
+    this.route.params.subscribe(params => this.currentCategoryId = params['categoryId'])
+    // this.findCategory()
+    // this.findProductList()
+  }
+
+  ngAfterViewChecked() {
+    this.route.params.subscribe(params => this.currentCategoryId = params['categoryId'])
+    // this.findCategory()
+    // this.findProductList()
+    console.log("weszlo")
+  }
+
+  findCategory() {
+      this.categoryService.findCategoryById(this.currentCategoryId).subscribe(category =>  this.currentCategory = category)
+      console.log("weszlo")
+  }
+
+  findProductList() {
+      this.productService.findProductsListInCategory(this.currentCategoryId).subscribe(productList =>  this.currentProductList = productList.body.content)
   }
 
 }

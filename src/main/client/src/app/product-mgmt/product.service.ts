@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpResponse} from "@angular/common/http";
+import {HttpClient, HttpParams, HttpResponse} from "@angular/common/http";
 import {Observable} from "rxjs";
 
 @Injectable({
@@ -13,6 +13,20 @@ export class ProductService {
   findProductById(id: number): Observable<HttpResponse<Product>> {
     return this.httpClient.get<Product>(`/api/products/${id}`, { observe: 'response' });
   }
+
+  findProductsListInCategory(id: number): Observable<HttpResponse<Page<Product[]>>> {
+
+    let params = new HttpParams()
+    params.set('categoryId', id.toString())
+
+    return this.httpClient.get<Page<Product[]>>(`/api/products`, {observe: 'response', params: params} )
+  }
+}
+
+class Page<T> {
+  content: T;
+  page: number;
+  size: number;
 }
 
 export class Product {

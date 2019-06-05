@@ -13,7 +13,7 @@ export class CategoryNavComponent implements OnInit {
   constructor(private categoryService: CategoryService) { }
 
   ngOnInit(): void {
-    this.currentCategories = this.categoryService.findAll();
+    this.categoryService.findAll().subscribe(categories => this.currentCategories = categories.content);
   }
 
 }

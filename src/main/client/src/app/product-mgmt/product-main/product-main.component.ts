@@ -8,12 +8,10 @@ import {Category, CategoryService} from "../category.service";
 })
 export class ProductMainComponent implements OnInit {
 
-  currentCategories: Category[];
 
-  constructor(private categoryService: CategoryService) { }
+  constructor() { }
 
   ngOnInit(): void {
-    this.currentCategories = this.categoryService.findAll();
   }
 
 }

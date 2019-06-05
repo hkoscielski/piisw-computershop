@@ -1,14 +1,6 @@
 <div class="container" style="width: 60%;">
   <div class="row justify-content-md-center">
-  <div class="container-fluid col-3">
-    <div class="list-group shadow-lg">
-      <a class="list-group-item" style="text-align: center; background-color: lightgrey;">Categories</a>
-      <a href="#" class="list-group-item list-group-item-action">Category AAA</a>
-      <a href="#" class="list-group-item list-group-item-action active">Category BBB</a>
-      <a href="#" class="list-group-item list-group-item-action">Category CCC</a>
-      <a href="#" class="list-group-item list-group-item-action">...</a>
-    </div>
-  </div>
+    <app-category-nav></app-category-nav>
   <div class="container-fluid col" style="width: 40%;">
     <label class="rounded shadow-lg" style="text-align: center; background-color: lightgrey; width: 100%;" *ngIf="currentProduct">{{currentProduct.categoryName}} • {{currentProduct.name}}</label>
     <p></p>

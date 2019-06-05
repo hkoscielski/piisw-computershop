@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import {HttpClient, HttpResponse} from "@angular/common/http";
 import {Observable} from "rxjs";
 
 @Injectable({
@@ -6,20 +7,22 @@ import {Observable} from "rxjs";
 })
 export class CategoryService {
 
-  categories: Category[] = []
-
-  constructor() {
-    this.categories = [
-      {id: 1, name: 'Karty graficzne'},
-      {id: 2, name: 'Procesory'},
-      {id: 3, name: 'Monitory'},
-      {id: 4, name: 'Akcesoria'}
-    ]
+  constructor(private httpClient: HttpClient) {
   }
 
-  findAll(): Category[] {
-    return this.categories;
+  findAll(): Observable<Page<Category[]>> {
+    return this.httpClient.get<Page<Category[]>>(`/api/products/categories`);
   }
+
+  findCategoryById(id: number): Observable<Category> {
+    return this.httpClient.get<Category>(`/api/products/categories/${id}`)
+  }
+}
+
+class Page<T> {
+  content: T;
+  page: number;
+  size: number;
 }
 
 export class Category {
