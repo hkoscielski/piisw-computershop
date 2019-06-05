@@ -15,24 +15,23 @@ export class ProductCategoryComponent implements OnInit {
   currentCategoryId: number;
 
   constructor(public categoryService: CategoryService, public productService: ProductService, public route: ActivatedRoute) {
+    console.log("Weszlo")
   }
 
   ngOnInit() {
     this.route.params.subscribe(params => this.currentCategoryId = params['categoryId'])
-    // this.findCategory()
-    // this.findProductList()
+    this.findCategory()
+    this.findProductList()
   }
 
-  ngAfterViewChecked() {
+  ngOnChanges() {
     this.route.params.subscribe(params => this.currentCategoryId = params['categoryId'])
-    // this.findCategory()
-    // this.findProductList()
-    console.log("weszlo")
+    this.findCategory()
+    this.findProductList
   }
 
   findCategory() {
       this.categoryService.findCategoryById(this.currentCategoryId).subscribe(category =>  this.currentCategory = category)
-      console.log("weszlo")
   }
 
   findProductList() {

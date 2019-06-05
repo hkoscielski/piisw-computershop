@@ -16,8 +16,7 @@ export class ProductService {
 
   findProductsListInCategory(id: number): Observable<HttpResponse<Page<Product[]>>> {
 
-    let params = new HttpParams()
-    params.set('categoryId', id.toString())
+    let params = new HttpParams().set('categoryId', id.toString())
 
     return this.httpClient.get<Page<Product[]>>(`/api/products`, {observe: 'response', params: params} )
   }
