@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Product, ProductService} from "../product.service";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-product-item',
@@ -12,13 +13,14 @@ export class ProductItemComponent implements OnInit {
   currentImageUrl: string;
   tab = 0;
 
-  constructor(private productService: ProductService) { }
+  constructor(private productService: ProductService, public route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.productService.findProductById(2)
-      .subscribe(product => {
-        this.currentProduct = product.body;
-        this.currentImageUrl = `${product.url}\\image`;
-      });
+    this.route.params.subscribe(params =>
+      this.productService.findProductById(params['productId'])
+        .subscribe(product => {
+          this.currentProduct = product.body;
+          this.currentImageUrl = `${product.url}\\image`;
+        }));
   }
 }
