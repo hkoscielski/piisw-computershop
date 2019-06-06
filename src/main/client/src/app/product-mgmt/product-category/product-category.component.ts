@@ -12,7 +12,6 @@ export class ProductCategoryComponent implements OnInit {
 
   currentCategory: Category;
   currentProductList: Product[];
-  currentCategoryId: number;
 
   constructor(public categoryService: CategoryService, public productService: ProductService, public route: ActivatedRoute) {
     console.log("Weszlo")

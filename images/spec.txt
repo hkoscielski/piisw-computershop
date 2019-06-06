@@ -1,0 +1,76 @@
+Logitech Wireless Mouse M185
+Plug-and-play wireless mouse delivers simple, reliable wireless performance with no delays or dropouts. The tiny wireless receiver gives you a dependable connection with no software and no hassles. Simply plug in the tiny nano receiver and start using your mouse right away. The nano receiver is so small and unobtrusive that you can plug it into a USB port and forget about it. Compatible with Window-based and Mac computers, wireless receiver provides the reliability of a cord with wireless convenience and freedom. Using this advanced, 2.4 GHz wireless connectivity results in fast data transmission and virtually no delays or dropouts. The mouse's 12-month battery life makes sure you don't have to deal with the hassle of frequent battery changes. The On/Off switch and smart sleep mode help conserve power. Wireless Mouse M185 also features a contoured design that feels good in either hand and offers more comfort than a touchpad. Mouse includes the nano receiver and one AA battery.
+
+Intel Core i7-8700
+Core i7-8700 is a 64-bit hexa-core high-end performance x86 desktop microprocessor introduced by Intel in 2017. This processor, which is based on the Coffee Lake microarchitecture, is manufactured on Intel's 3rd generation enhanced 14nm++ process. The i7-8700 operates at a 3.2 GHz with a TDP of 65 W and a Turbo Boost frequency of up to 4.6 GHz. This chip supports up to 64 GiB of dual-channel DDR4-2666 memory and incorporates Intel's UHD Graphics 630 IGP operating at 350 MHz with a burst frequency of 1.2 GHz.
+
+Gigabyte GeForce GTX 1050 Ti WF OC
+Turn your PC into a true gaming machine with the GeForce GTX 1050 Ti graphics card. It's based on the state-of-the-art Pascal architecture manufactured with the ultra-fast FinFET, and comes with 768 CUDA Cores and 4GB 128-bit GDDR5 memory. Thus you get impressive performance and capability to experience the latest titles in their full glory. The GeForce GTX 1050 Ti is also loaded with a rich array of gaming-enhancing technologies to improve your gaming experience, like Ansel technology that captures 360-degree game scenes, G-Sync for smooth, tear-free images, and more.
+This Gigabyte GeForce GTX 1050 Ti OC 4G model can operate, in OC mode, at up to 1341MHz Base/1455MHz Boost clock (1290MHz/1392MHz for reference card) to give you more graphics power out of the box. And the dual fan thermal solution keeps your card nice and cool even in the heat of gaming, without giving out too much noise.
+
+MSI Radeon RX 590 ARMOR OC
+The 4th generation GCN architecture is engineered for gamers who play anything from the latest MOBA’s to the most popular AAA titles. Asynchronous Shaders and an enhanced Geometry Engine power new levels of smooth gameplay performance.
+Experience the next level of immersion with the world of VR gaming and entertainment with Radeon RX graphics cards powered by the revolutionary Polaris architecture.
+Puts an end to choppy gameplay and broken frames with fluid, artifact-free performance at virtually any framerate.
+Enhanced contrast and colors deliver a strikingly sharp, colorful, and vivid visual experience.
+
+Gigabyte GeForce GTX 1660 OC
+The GIGABYTE patent “Alternate Spinning” is the only solution that can solve the turbulent airflow of adjacent fans. Since the adjacent fans rotate in the same direction, the airflow direction is opposite between the fans, which will cause turbulent airflow and reduce heat dissipation efficiency. GIGABYTE turns the adjacent fans in the opposite direction, so that the airflow direction between the two fans is the same, reducing the turbulence and enhancing the airflow pressure.
+
+Gigabyte GeForce RTX 2070 WINDFORCE
+The NVIDIA GeForce RTX 2070 GPU is based on the ground-breaking Turning architecture that was built using 12nm FinFET—a new generation of graphics chip engineered for a new level of realism. This graphics card series incorporates brand-new, industry-changing, real-time ray tracing, AI and shading technology to transform gaming visuals with lifelike reflections, refractions and shadows. Meanwhile, the Deep-Learning Super-Sampling feature enables much smoother frame rates and less burden on the GPU than previous-generation anti-aliasing technology. This GeForce RTX 2070 card packs 2,304 CUDA Cores, and 8GB of GDDR6/256-bit memory running at 14Gbps (reference card frequency).
+
+ASUS GeForce RTX 2060 ROG Strix OC
+The ROG Strix GeForce RTX™ 2060 teams up NVIDIA's A-list GPU with an elite cast of specialists, setting the stage for epic gaming action. Gargantuan power delivery provides the muscle to push overclocking boundaries, while cooling that's honed to perfection keeps the spotlight squarely on Turing™'s performance. And with an arsenal of utilities that allow you to customize and tweak this extreme hardware, you call the shots.
+
+Gigabyte Radeon RX 580 GAMING
+The Gigabyte Radeon RX 580 Gaming 4G with semi-passive Windforce cooler reaches a base clock of 1.340 MHz, which can be boosted to 1.355 MHz. The 4 GB GDDR5 VRAM is clocked at 4.000 MHz (8.000 MHz) and connected via a 256-Bit memory interface to the GPU. An 8-Pin power connector keeps the 23,2 cm long graphics card supplied with power and a power supply capable of delivering 500 Watts is recommended. 
+
+MSI GeForce RTX 2080 GAMING X TRIO
+The GeForce RTX 20 Series GAMING TRIO is the return of MSI’s mighty three-fan graphics card. Only reserved for the most powerful of GPU’s, the TRIO Series features a mix of black and gunmetal grey with elegant shapes and a classy brushed metal backplate that matches the front. This looks great with the gorgeous RGB effects found on the front and the side of the card, which can be controlled using MSI’s Mystic Light software and made to synchronize with other RGB components.
+
+MSI GeForce GTX 1050 TI 4GT OC
+Based on NVIDIA's Pascal architecture, the MSI GeForce GTX 1050 4G OC Graphics Card provides major improvements in performance, memory bandwidth, and power efficiency over its predecessor, the high-performance Maxwell architecture. It also introduces innovative graphics features and technologies that redefine the computer as the platform for playing AAA games.
+The front panel of the card features a variety of outputs. There is one DisplayPort 1.4 output, one HDMI 2.0b output, and one DVI-D Dual-Link output. The GTX 1050 Ti is not just about high-resolution gaming. Computationally intensive programs can utilize the GPU's 768 cores to accelerate tasks using CUDA or other APIs.
+
+Palit GeForce GTX 1070 JetStream
+The revolutionary Palit JetStream series of graphics cards features advanced innovative cooling and an optimized product design to deliver the ultimate gaming performance. As the latest and the next generation NVIDIA Pascal architecture features power efficiency, gaming experiences and latest gaming technologies, the Palit GeForce 1070 JetStream series guarantee gamers cutting-edge performance and a explosive new gaming experience.
+
+Palit GeForce GTX 1660 StormX OC
+The GeForce® GTX 1660 Ti is built with the breakthrough graphics performance of the award-winning NVIDIA Turing™ architecture. With performance that rivals the GeForce GTX 1070, it’s a blazing-fast supercharger for today’s most popular games, and even faster with modern titles.
+
+Palit GeForce RTX 2080 GameRock
+The brand new gaming series, Palit “GameRock” is specially designed for enthusiast gamers who desire to have the ultimate gaming experience. GameRock series provides the best gaming features, the best thermal solution and the best graphics card quality, make you become a real game rocker without any fears.
+
+PNY GeForce GT 1030
+Accelerate your entire PC experience with the fast, powerful PNY GeForce® GT 1030 graphics card. Its award-winning NVIDIA Pascal™ architecture, powerful graphics engine, and state-of-the-art technologies give you the performance upgrade you need to drive today’s most demanding PC application.
+
+ASUS GeForce GTX 1060 Dual OC
+ASUS Dual series of GeForce GTX 1060 comes equipped with Patented Wing-Blade Fans for max air flow with 105% more air pressure. While exclusive Auto-Extreme Technology with Super Alloy Power II components for superior stability. GPU Tweak II with XSplit Gamecaster that provides intuitive performance tweaking and instant gameplay streaming. ASUS Dual series of GeForce® GTX 1060 is perfectly matched with your ASUS X99-A II motherboard.
+
+Sapphire Radeon RX 560 PULSE
+The SAPPHIRE Pulse Radeon RX560 plays your favourites at a smooth 1080p, from the latest eSports games and MOBAs to the most popular, graphically-intensive AAA titles. Built on the future-ready Polaris architecture and sporting 1024 GCN stream processors boost-clocked at 1216MHz. The card is ready for the latest technologies like DisplayPort 1.4 HBR3/HDR, HDMI 4K60, and FreeSync 2 technology delivering a high level of graphical fidelity in your favourite games and multimedia experience.
+
+Gainward GeForce RTX 2060 Phoenix
+This graphic card has oneHDMI port. HDMI is among the most modern ports if we speak about connecting TVs and the latest generation monitors. The main advantages of HDMI in comparison to DVI and D-SUB are a thin cable which permits to transfer a high quality digital picture and also the multichannel sound signal is transmitted via the same cable. HDMI is compatible with DVI if you buy an extra transition or a cable, however the possibility to transmit also sound is lost in this case.
+DisplayPort port for this graphic card provide a possibility to connect the latest Dell, Philips, NEC, HP, Benq and certain Samsung monitors. DisplayPort is currently not very widespread, but it permits to connect several monitors from a computer via a single cable by using a series connection. DisplayPort is not compatible with DVI and HDMI.
+
+Gigabyte GeForce GTX 1050 OC Low Profile
+The WINDFORCE 2X cooling system features two 80 mm unique blade fans and semi-passive 3D active fan together delivering an effective heat dissipation capacity for higher performance at lower temperatures. 
+The airflow is spilled by the triangle fan edge, and guided smoothly through the 3D stripe curve on the fan surface, effectively enhancing the air flow by 23% over traditional fans. 
+The semi-passive fans will remain off when the GPU is under a set loading or temperature for low power gaming. It allows gamers to enjoy gameplay in complete silence when the system is running light or idle.
+
+Acer Nitro VG220QBMIIX
+The Acer KG1 is a monitor for demanding gamers of action genres, which are not enough for common models. Full HD sharpness here keeps the milliseconds response even in the fastest scenes , so you will not lose sight even for a moment, even if the battle is very frantic. Smoother viewing is provided by AMD FreeSync, when a compatible video card (AMD) dynamically changes the Acer Nitro VG220Qbmiix refresh rate to the maximum of 75 Hz.Acer Low Dimming is designed to help reduce eye fatigue when working under difficult lighting conditions . Allows you to set at least 15% brightness at low ambient light levels to reduce eye strain. The minimum brightness level for standard monitors starts at 30%. ComfyView has been developed to reduce glare. The Acer Nitro VG220Qbmiix dashboard with a matte finish reduces the reflections of surrounding light sources.
+
+LG 29UM69G
+Enhance your gaming experience with the 29UM69G-B 29" 21:9 UltraWide IPS Gaming Monitor from LG. This monitor features an UltraWide 21:9 aspect ratio expanding your screen space while the 1 ms response time, backed by Motion Blur Reduction functionality, helps to eliminate screen tearing.
+
+Crucial 500GB 2,5" SATA SSD MX500
+Solid state drive - internal - TRIM support, Error Correction Code (ECC), Adaptive Thermal Protection, Microsoft eDrive compatible, Redundant Array of Independent NAND, Multistep Data Integrity Algorithm, Active Garbage Collection, dynamic write acceleration, upgradable firmware, 3D NAND Technology, Device Sleep support, power loss data protection.
+
+Samsung 500GB 970 EVO Plus M.2 2280 NVMe
+The ultimate in performance, upgraded. Faster than the 970 EVO, the 970 EVO Plus is powered by the latest V-NAND technology and firmware optimisation. It maximises the potential of NVMe bandwidth for unbeatable computing in capacities up to 2TB, with reliability of up to 1,200 TBW.
+
+G.SKILL 16GB 3000MHz Aegis CL16
+DDR4 now comes to the widely acclaimed AEGIS family. Higher speed and lower voltage requirement combine to give your gaming PC system a sharp increase in performance and stability. It is constructed with hand-selected ICs and tested with stringent validation process. That is a real big deal. AEGIS DDR memory is something you can count on whether you play FPS, RTS, MOBA, or MMORPG.

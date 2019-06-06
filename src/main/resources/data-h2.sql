@@ -24,7 +24,10 @@ values
     (image_seq.nextval, 'image17.jpg', 12312312, 'image/png'),
     (image_seq.nextval, 'image18.jpg', 12312312, 'image/png'),
     (image_seq.nextval, 'image19.jpg', 12312312, 'image/png'),
-    (image_seq.nextval, 'image20.jpg', 12312312, 'image/png');
+    (image_seq.nextval, 'image20.jpg', 12312312, 'image/png'),
+    (image_seq.nextval, 'image21.jpg', 12312312, 'image/png'),
+    (image_seq.nextval, 'image22.jpg', 12312312, 'image/png'),
+    (image_seq.nextval, 'image23.jpg', 12312312, 'image/png');
 
 insert into categories (id, name)
 values
@@ -38,8 +41,8 @@ values
 insert into products (id, name, price, image_id, category_id)
 values
     (product_seq.nextval, 'Logitech Wireless Mouse M185', 18.99, 1, 1),              -- 1
-    (product_seq.nextval, 'Intel Core i7-8750H', 200.00, 2, 2),                      -- 2
-    (product_seq.nextval, 'NVIDIA GeForce GTX 1050 Ti', 189.99, 3, 3),               -- 3
+    (product_seq.nextval, 'Intel Core i7-8700', 200.00, 2, 2),                      -- 2
+    (product_seq.nextval, 'Gigabyte GeForce GTX 1050 Ti WF OC', 189.99, 3, 3),       -- 3
     (product_seq.nextval, 'MSI Radeon RX 590 ARMOR OC', 239.99, 4, 3),               -- 4
     (product_seq.nextval, 'Gigabyte GeForce GTX 1660 OC', 269.00, 5, 3),             -- 5
     (product_seq.nextval, 'Gigabyte GeForce RTX 2070 WINDFORCE', 585.99, 6, 3),      -- 6
@@ -56,7 +59,10 @@ values
     (product_seq.nextval, 'Gainward GeForce RTX 2060 Phoenix', 420.00, 17, 3),       -- 17
     (product_seq.nextval, 'Gigabyte GeForce GTX 1050 OC Low Profile', 155.50, 18, 3),-- 18
     (product_seq.nextval, 'Acer Nitro VG220QBMIIX', 119.99, 19, 4),                  -- 19
-    (product_seq.nextval, 'LG 29UM69G', 235.99, 20, 4);                              -- 20
+    (product_seq.nextval, 'LG 29UM69G', 235.99, 20, 4),                              -- 20
+    (product_seq.nextval, 'Crucial 500GB 2,5" SATA SSD MX500', 79.99, 21, 5),        -- 21
+    (product_seq.nextval, 'Samsung 500GB 970 EVO Plus M.2 2280 NVMe', 145.89, 22, 5),-- 22
+    (product_seq.nextval, 'G.SKILL 16GB 3000MHz Aegis CL16', 145.89, 23, 6);         -- 23
 
 insert into products_attr (id, code, name, value, is_main, product_id)
 values
@@ -65,13 +71,20 @@ values
     (product_attr_seq.nextval, 'range', 'Range', '10m', false, 1),
     (product_attr_seq.nextval, 'buttons', 'Buttons', '3', false, 1),
 
-    (product_attr_seq.nextval, 'chipsetManufacturer', 'Chipset manufacturer', 'Intel', true, 2),
-    (product_attr_seq.nextval, 'chipset', 'Chipset', 'Radeon RX 590', true, 2),
-    (product_attr_seq.nextval, 'memorySize', 'Memory size', '8192 MB', true, 2),
-    (product_attr_seq.nextval, 'memoryType', 'Memory type', 'GDDR5', true, 2),
-    (product_attr_seq.nextval, 'coreSpeed', 'Core speed', '1565 MHz', false, 2),
-    (product_attr_seq.nextval, 'memorySpeed', 'Memory speed', '8000 MHz', false, 2),
-    (product_attr_seq.nextval, 'connectorType', 'Connector Type', 'PCI-Express x16', false, 2),
+    (product_attr_seq.nextval, 'processorManufacturer', 'Manufacturer', 'Intel', true, 2),
+    (product_attr_seq.nextval, 'processorNumber', 'Number', 'i7-8700', true, 2),
+    (product_attr_seq.nextval, 'processorBaseFrequency', 'Base Frequency', '3.20 GHz', true, 2),
+    (product_attr_seq.nextval, 'processorTurboFrequency', 'Turbo Frequency', '4.60 GHz', true, 2),
+    (product_attr_seq.nextval, 'processorTDP', 'TDP', '65 W', false, 2),
+    (product_attr_seq.nextval, 'processorGraphics', 'Graphics', 'Intel UHD Graphics 630', false, 2),
+
+    (product_attr_seq.nextval, 'chipsetManufacturer', 'Chipset manufacturer', 'Gigabyte', true, 3),
+    (product_attr_seq.nextval, 'chipset', 'Chipset', 'GeForce GTX 1050', true, 3),
+    (product_attr_seq.nextval, 'memorySize', 'Memory size', '4 GB', true, 3),
+    (product_attr_seq.nextval, 'memoryType', 'Memory type', 'GDDR5', true, 3),
+    (product_attr_seq.nextval, 'coreSpeed', 'Core speed', '1354 MHz', false, 3),
+    (product_attr_seq.nextval, 'memorySpeed', 'Memory speed', '7008 MHz', false, 3),
+    (product_attr_seq.nextval, 'connectorType', 'Connector Type', 'PCI-E x16 3.0', false, 3),
 
     (product_attr_seq.nextval, 'chipsetManufacturer', 'Chipset manufacturer', 'MSI', true, 4),
     (product_attr_seq.nextval, 'chipset', 'Chipset', 'Radeon RX 590', true, 4),
@@ -205,5 +218,20 @@ values
     (product_attr_seq.nextval, 'screenMatrix', 'Matrix', 'LED, IPS', true, 20),
     (product_attr_seq.nextval, 'screenRefreshRate', 'Refresh Rate', '75 Hz', false, 20),
     (product_attr_seq.nextval, 'screenColours', 'Colours', '16,7 mln', false, 20),
-    (product_attr_seq.nextval, 'screenProportion', 'Proportion', '21x9', false, 20);
+    (product_attr_seq.nextval, 'screenProportion', 'Proportion', '21x9', false, 20),
 
+    (product_attr_seq.nextval, 'discCapacity', 'Capacity', '500 GB', true, 21),
+    (product_attr_seq.nextval, 'discInterface', 'Interface', 'SATA III', true, 21),
+    (product_attr_seq.nextval, 'discFormat', 'Format', '2.5"', true, 21),
+    (product_attr_seq.nextval, 'discReadingSpeed', 'Reading speed', '560 MB/s', false, 21),
+    (product_attr_seq.nextval, 'discSavingSpeed', 'Saving speed', '510 MB/s', false, 21),
+
+    (product_attr_seq.nextval, 'discCapacity', 'Capacity', '500 GB', true, 22),
+    (product_attr_seq.nextval, 'discInterface', 'Interface', 'M.2', true, 22),
+    (product_attr_seq.nextval, 'discReadingSpeed', 'Reading speed', '3500 MB/s', false, 22),
+    (product_attr_seq.nextval, 'discSavingSpeed', 'Saving speed', '3200 MB/s', false, 22),
+
+    (product_attr_seq.nextval, 'ramCapacity', 'Capacity', '16 GB', true, 23),
+    (product_attr_seq.nextval, 'ramType', 'Type', 'DDR4', true, 23),
+    (product_attr_seq.nextval, 'ramClocking', 'Speed', '3000 MHz', true, 23),
+    (product_attr_seq.nextval, 'ramDelay', 'Delay', 'CL 16', false, 23);
