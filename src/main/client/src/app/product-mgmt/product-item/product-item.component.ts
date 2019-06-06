@@ -10,7 +10,6 @@ import {ActivatedRoute} from "@angular/router";
 export class ProductItemComponent implements OnInit {
 
   currentProduct: Product;
-  currentImageUrl: string;
   tab = 0;
 
   constructor(private productService: ProductService, public route: ActivatedRoute) { }
@@ -20,7 +19,7 @@ export class ProductItemComponent implements OnInit {
       this.productService.findProductById(params['productId'])
         .subscribe(product => {
           this.currentProduct = product.body;
-          this.currentImageUrl = `${product.url}\\image`;
+          this.currentProduct.imageUrl = `${product.url}/image`;
         }));
   }
 }

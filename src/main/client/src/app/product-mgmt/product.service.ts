@@ -31,6 +31,7 @@ export class Product {
   name: string;
   price: number;
   categoryName: string;
+  imageUrl: string;
   mainAttributes: ProductAttr[];
   additionalAttributes: ProductAttr[];
 }

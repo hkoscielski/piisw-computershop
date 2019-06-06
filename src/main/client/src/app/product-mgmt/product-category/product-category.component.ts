@@ -29,7 +29,12 @@ export class ProductCategoryComponent implements OnInit {
   }
 
   findProductList(categoryId: number) {
-      this.productService.findProductsListInCategory(categoryId).subscribe(productList => this.currentProductList = productList.body.content)
+      this.productService.findProductsListInCategory(categoryId).subscribe(productList => {
+        this.currentProductList = productList.body.content.map(product => {
+          product.imageUrl = `${productList.url.replace(/\?(.*)/g, '')}/${product.id}/image`;
+          return product;
+        });
+      })
   }
 
 }

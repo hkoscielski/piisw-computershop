@@ -31,8 +31,8 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   }));
 
-  it('should render navigation bar', async(() => {
+  it('should render footer', async(() => {
     const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('app-nav ul li a').textContent).toContain('First categories');
+    expect(compiled.querySelector('app-nav div a').textContent).toContain('K. Jakubowski, M. Kawa, H. Kościelski');
   }));
 });

@@ -27,13 +27,13 @@ describe('NavComponent', () => {
         expect(component.currentBuild.version).toBe('local');
     });
 
-    it('should render links to dialogs', async(() => {
-        fixture = TestBed.createComponent(NavComponent);
-        fixture.detectChanges();
-        const compiled = fixture.debugElement.nativeElement;
-        const linkElements = compiled.querySelectorAll('ul li');
-        expect(linkElements.length).toBe(2);
-        expect(linkElements[0].querySelector('a').textContent).toContain('First categories');
-        expect(linkElements[1].querySelector('a').textContent).toContain('First product');
-    }));
+    // it('should render links to dialogs', async(() => {
+    //     fixture = TestBed.createComponent(NavComponent);
+    //     fixture.detectChanges();
+    //     const compiled = fixture.debugElement.nativeElement;
+    //     const linkElements = compiled.querySelectorAll('ul li');
+    //     expect(linkElements.length).toBe(2);
+    //     expect(linkElements[0].querySelector('a').textContent).toContain('First categories');
+    //     expect(linkElements[1].querySelector('a').textContent).toContain('First product');
+    // }));
 });

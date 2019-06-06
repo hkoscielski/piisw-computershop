@@ -2,14 +2,14 @@
   <div class="row justify-content-md-center">
     <app-category-nav></app-category-nav>
     <div class="container-fluid col" style="width: 40%;">
-      <label class="rounded shadow-lg" style="text-align: center; background-color: lightgrey; width: 100%;">{{currentCategory.name}}</label>
+      <label *ngIf="currentCategory" class="rounded shadow-lg" style="text-align: center; background-color: lightgrey; width: 100%;">{{currentCategory.name}}</label>
       <p></p>
       <div class="card shadow-lg">
         <div class="card-body" style="padding: 0;">
             <div class="row justify-content-around" style="margin: 20px 10px 0 10px;">
               <div class="card-deck" *ngFor="let product of currentProductList">
                 <div class="card mb-3 shadow-hover" style="width: 8rem; height: 8rem; margin: 0 20px 0 20px;"[routerLink]="['/products', product.id]">
-                  <img class="card-img-top" src="https://placehold.it/280x140/abc" alt="{{product.name}}" style="width: 8rem; height: 8rem;">
+                  <img class="card-img-top" src="{{product.imageUrl}}" alt="{{product.name}}" style="width: 8rem; height: 8rem;">
                   <div class="card-body centered mx-auto" style="font-size: 0.6em; padding: 2px; text-align: center;">{{product.name}}</div>
                 </div>
               </div>
