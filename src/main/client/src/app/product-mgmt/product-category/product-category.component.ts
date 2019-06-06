@@ -15,6 +15,7 @@ export class ProductCategoryComponent implements OnInit {
   currentCategoryId: number;
 
   constructor(public categoryService: CategoryService, public productService: ProductService, public route: ActivatedRoute) {
+    console.log("Weszlo")
   }
 
   ngOnInit() {
@@ -26,7 +27,6 @@ export class ProductCategoryComponent implements OnInit {
 
   findCategory(categoryId: number) {
       this.categoryService.findCategoryById(categoryId).subscribe(category => this.currentCategory = category)
-      console.log("weszlo")
   }
 
   findProductList(categoryId: number) {
