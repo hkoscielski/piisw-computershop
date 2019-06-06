@@ -1,29 +1,41 @@
-<nav class="navbar navbar-toggleable-md navbar-light bg-faded">
-  <button class="navbar-toggler navbar-toggler-right"
-          type="button"
-          aria-controls="navbarSupportedContent"
-          aria-label="Toggle navigation"
-          [attr.aria-expanded]="!navCollapsed"
-          [class.collapsed]="navCollapsed"
-          (click)="toggleNavigation()">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <a class="navbar-brand" href="#">
-      <ng-template #oaspVersion><span class="version-template">Version: {{currentBuild.version}}, built at {{currentBuild.timestamp}}</span></ng-template>
-      <div class="d-flex flex-column" placement="right"
-           [ngbTooltip]="oaspVersion" >
-          <img src="assets/oasp-logo-72dpi.png" height="25">
-          <span class="oasp-version">Ver. {{currentBuild.version}}</span>
-      </div>
+<nav class="navbar navbar-light bg-light sticky-top shadow-sm">
+  <a class="navbar-brand mx-auto" href="#">
+    <img src="/docs/4.3/assets/brand/bootstrap-solid.svg" width="30" height="30" class="d-inline-block align-top" alt="">
+    MediaShop
   </a>
-  <div class="collapse navbar-collapse" id="navbarSupportedContent" [class.show]="!navCollapsed">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item" routerLinkActive="active">
-        <a class="nav-link" routerLink="/categories/1">First categories</a>
-      </li>
-      <li class="nav-item" routerLinkActive="active">
-        <a class="nav-link" routerLink="/products/1">First product</a>
-      </li>
-    </ul>
+</nav>
+<p></p>
+<nav class="navbar navbar-light shadow-lg fixed-bottom" style="padding: 3px; width: 100%">
+  <div class="mx-auto">
+    <a> K. Jakubowski, M. Kawa, H. Kościelski © 2019</a>
   </div>
 </nav>
+<!--<nav class="navbar navbar-toggleable-md navbar-light bg-faded">-->
+<!--  <button class="navbar-toggler navbar-toggler-right"-->
+<!--          type="button"-->
+<!--          aria-controls="navbarSupportedContent"-->
+<!--          aria-label="Toggle navigation"-->
+<!--          [attr.aria-expanded]="!navCollapsed"-->
+<!--          [class.collapsed]="navCollapsed"-->
+<!--          (click)="toggleNavigation()">-->
+<!--    <span class="navbar-toggler-icon"></span>-->
+<!--  </button>-->
+<!--  <a class="navbar-brand" href="#">-->
+<!--      <ng-template #oaspVersion><span class="version-template">Version: {{currentBuild.version}}, built at {{currentBuild.timestamp}}</span></ng-template>-->
+<!--      <div class="d-flex flex-column" placement="right"-->
+<!--           [ngbTooltip]="oaspVersion" >-->
+<!--          <img src="assets/oasp-logo-72dpi.png" height="25">-->
+<!--          <span class="oasp-version">Ver. {{currentBuild.version}}</span>-->
+<!--      </div>-->
+<!--  </a>-->
+<!--  <div class="collapse navbar-collapse" id="navbarSupportedContent" [class.show]="!navCollapsed">-->
+<!--    <ul class="navbar-nav mr-auto">-->
+<!--      <li class="nav-item" routerLinkActive="active">-->
+<!--        <a class="nav-link" routerLink="/categories/1">First categories</a>-->
+<!--      </li>-->
+<!--      <li class="nav-item" routerLinkActive="active">-->
+<!--        <a class="nav-link" routerLink="/products/1">First product</a>-->
+<!--      </li>-->
+<!--    </ul>-->
+<!--  </div>-->
+<!--</nav>-->
