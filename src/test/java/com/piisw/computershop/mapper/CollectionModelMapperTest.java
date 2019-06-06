@@ -80,7 +80,7 @@ public class CollectionModelMapperTest {
 		//given
 		Image image = new Image(1L, "image1.png", 123123123, "image/png");
 		CategoryEntity category = new CategoryEntity(1L, "Graphics cards");
-		ProductEntity entity = new ProductEntity(1L, "NVIDIA GeForce GTX 1050 Ti", new BigDecimal("189.99"), category, image, Collections.emptyList());
+		ProductEntity entity = new ProductEntity(1L, "NVIDIA GeForce GTX 1050 Ti", new BigDecimal("189.99"), category, image, Collections.emptyList(), "Description7");
 		List<ProductAttrEntity> mainAttributes = Arrays.asList(
 				new ProductAttrEntity(1L, "chipsetManufacturer", "Chipset manufacturer", "NVIDIA", true, entity),
 				new ProductAttrEntity(2L, "chipset", "Chipset", "GeForce GTX 1050 Ti", true, entity)
@@ -119,7 +119,7 @@ public class CollectionModelMapperTest {
 		//given
 		Image image1 = new Image(1L, "image1.png", 123123123, "image/png");
 		CategoryEntity category1 = new CategoryEntity(1L, "Graphics cards");
-		ProductEntity entity1 = new ProductEntity(1L, "NVIDIA GeForce GTX 1050 Ti", new BigDecimal("189.99"), category1, image1, Collections.emptyList());
+		ProductEntity entity1 = new ProductEntity(1L, "NVIDIA GeForce GTX 1050 Ti", new BigDecimal("189.99"), category1, image1, Collections.emptyList(), "Description8");
 		List<ProductAttrEntity> mainAttributes1 = Arrays.asList(
 				new ProductAttrEntity(1L, "chipsetManufacturer", "Chipset manufacturer", "NVIDIA", true, entity1),
 				new ProductAttrEntity(2L, "chipset", "Chipset", "GeForce GTX 1050 Ti", true, entity1)
@@ -132,7 +132,7 @@ public class CollectionModelMapperTest {
 
 		Image image2 = new Image(2L, "image2.png", 321321, "image/png");
 		CategoryEntity category2 = new CategoryEntity(2L, "CPU");
-		ProductEntity entity2 = new ProductEntity(2L, "AMD Radeon RX 590", new BigDecimal("239.99"), category2, image2, Collections.emptyList());
+		ProductEntity entity2 = new ProductEntity(2L, "AMD Radeon RX 590", new BigDecimal("239.99"), category2, image2, Collections.emptyList(), "Description9");
 		List<ProductAttrEntity> mainAttributes2 = Arrays.asList(
 				new ProductAttrEntity(5L, "chipsetManufacturer", "Chipset manufacturer", "AMD", true, entity2),
 				new ProductAttrEntity(6L, "chipset", "Chipset", "Radeon RX 590", true, entity2)
@@ -193,7 +193,7 @@ public class CollectionModelMapperTest {
 		//given
 		Image image1 = new Image(1L, "image1.png", 123123123, "image/png");
 		CategoryEntity category1 = new CategoryEntity(1L, "Graphics cards");
-		ProductEntity entity1 = new ProductEntity(1L, "NVIDIA GeForce GTX 1050 Ti", new BigDecimal("189.99"), category1, image1, Collections.emptyList());
+		ProductEntity entity1 = new ProductEntity(1L, "NVIDIA GeForce GTX 1050 Ti", new BigDecimal("189.99"), category1, image1, Collections.emptyList(), "Description10");
 		List<ProductAttrEntity> mainAttributes1 = Arrays.asList(
 				new ProductAttrEntity(1L, "chipsetManufacturer", "Chipset manufacturer", "NVIDIA", true, entity1),
 				new ProductAttrEntity(2L, "chipset", "Chipset", "GeForce GTX 1050 Ti", true, entity1)
@@ -206,7 +206,7 @@ public class CollectionModelMapperTest {
 
 		Image image2 = new Image(2L, "image2.png", 321321, "image/png");
 		CategoryEntity category2 = new CategoryEntity(2L, "CPU");
-		ProductEntity entity2 = new ProductEntity(2L, "AMD Radeon RX 590", new BigDecimal("239.99"), category2, image2, Collections.emptyList());
+		ProductEntity entity2 = new ProductEntity(2L, "AMD Radeon RX 590", new BigDecimal("239.99"), category2, image2, Collections.emptyList(), "Description11");
 		List<ProductAttrEntity> mainAttributes2 = Arrays.asList(
 				new ProductAttrEntity(5L, "chipsetManufacturer", "Chipset manufacturer", "AMD", true, entity2),
 				new ProductAttrEntity(6L, "chipset", "Chipset", "Radeon RX 590", true, entity2)
