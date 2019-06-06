@@ -17,9 +17,10 @@ export class ProductMainComponent implements OnInit {
   ngOnInit(): void {
     this.categoryService.findAll().subscribe(categories =>
       categories.content.forEach(cat =>
-        this.productService.findProductsListInCategory(cat.id).subscribe(productList => {
-          if (productList.body.content[0]) this.hotProductList[this.hotProductList.length] = productList.body.content[0];
-        })
+        // this.productService.findProductsListInCategory(cat.id, 0, 1).subscribe(productList => {
+        //   if (productList.body.content[0]) this.hotProductList[this.hotProductList.length] = productList.body.content[0];
+        // })
+        console.log('')
       )
     )
   }

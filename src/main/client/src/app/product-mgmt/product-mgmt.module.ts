@@ -8,6 +8,7 @@ import {RouterModule} from '@angular/router';
 import {HttpClientModule} from '@angular/common/http';
 import {GeneralModule} from "../general/general.module";
 import {CategoryNavComponent} from "../general/category-nav/category-nav.component";
+import {NgbPaginationModule} from "@ng-bootstrap/ng-bootstrap";
 
 @NgModule({
   declarations: [ProductItemComponent, ProductCategoryComponent, ProductMainComponent, CategoryNavComponent],
@@ -16,7 +17,8 @@ import {CategoryNavComponent} from "../general/category-nav/category-nav.compone
     FormsModule,
     RouterModule,
     HttpClientModule,
-    GeneralModule
+    GeneralModule,
+    NgbPaginationModule
   ]
 })
 export class ProductMgmtModule {

@@ -14,16 +14,20 @@ export class ProductService {
     return this.httpClient.get<Product>(`/api/products/${id}`, { observe: 'response' });
   }
 
-  findProductsListInCategory(id: number): Observable<HttpResponse<Page<Product[]>>> {
-    const params = new HttpParams().set('categoryId', id.toString());
+  findProductsListInCategory(id: number, page: number, size: number): Observable<HttpResponse<Page<Product[]>>> {
+    const params = new HttpParams()
+      .set('categoryId', id.toString())
+      .set('page', page.toString())
+      .set('size', size.toString());
     return this.httpClient.get<Page<Product[]>>(`/api/products`, {observe: 'response', params} )
   }
 }
 
 class Page<T> {
   content: T;
-  page: number;
+  number: number;
   size: number;
+  totalElements: number;
 }
 
 export class Product {
