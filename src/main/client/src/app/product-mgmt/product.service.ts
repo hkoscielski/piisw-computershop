@@ -38,6 +38,7 @@ export class Product {
   imageUrl: string;
   mainAttributes: ProductAttr[];
   additionalAttributes: ProductAttr[];
+  description: string;
 }
 
 export class ProductAttr {

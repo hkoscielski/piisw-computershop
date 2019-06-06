@@ -36,4 +36,7 @@ public class ProductEntity {
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "productEntity")
 	private List<ProductAttrEntity> productAttrEntities;
+
+	@Lob
+	private String description;
 }

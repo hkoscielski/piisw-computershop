@@ -37,4 +37,7 @@ public class ProductResponseDTO {
 
 	@NotNull
 	private List<AttributeDTO> additionalAttributes;
+
+	@NotNull
+	private String description;
 }
