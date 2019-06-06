@@ -6,9 +6,9 @@
       <p></p>
       <div class="card shadow-lg">
         <div class="card-body" style="padding: 0;">
-            <div class="row justify-content-around" style="margin: 20px 10px 0 10px;">
+            <div class="row justify-content-around" style="margin: 1.8rem 0.9rem 0 0.9rem;">
               <div class="card-deck" *ngFor="let product of currentProductList">
-                <div class="card mb-3 shadow-hover" style="width: 8rem; height: 8rem; margin: 0 20px 0 20px;"[routerLink]="['/products', product.id]">
+                <div class="card mb-3 shadow-hover" style="width: 8.1rem; height: 8.7rem; margin: 0 1.8rem 0 1.8rem;"[routerLink]="['/products', product.id]">
                   <img class="card-img-top" src="{{product.imageUrl}}" alt="{{product.name}}" style="width: 8rem; height: 8rem;">
                   <div class="card-body centered mx-auto" style="font-size: 0.6em; padding: 2px; text-align: center;">{{product.name}}</div>
                 </div>
@@ -18,6 +18,8 @@
             <ngb-pagination *ngIf="currentCategory && currentProductList"
                             [collectionSize]="totalElements"
                             (pageChange)="onPageChange($event)"
+                            class="float-right"
+                            style="margin: 0 1.85rem 0 0;"
                             [(page)]="page"
                             [pageSize]="size"
                             [maxSize]="size"
