@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpResponse} from "@angular/common/http";
 import {Observable} from "rxjs";
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -11,11 +12,11 @@ export class CategoryService {
   }
 
   findAll(): Observable<Page<Category[]>> {
-    return this.httpClient.get<Page<Category[]>>(`/api/products/categories`);
+    return this.httpClient.get<Page<Category[]>>(`${environment.apiBaseUrl}/api/products/categories`);
   }
 
   findCategoryById(id: number): Observable<Category> {
-    return this.httpClient.get<Category>(`/api/products/categories/${id}`)
+    return this.httpClient.get<Category>(`${environment.apiBaseUrl}/api/products/categories/${id}`)
   }
 }
 
