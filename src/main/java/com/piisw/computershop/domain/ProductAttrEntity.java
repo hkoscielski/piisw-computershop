@@ -21,8 +21,8 @@ import javax.persistence.*;
 public class ProductAttrEntity {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "product_attr_generator")
-	@SequenceGenerator(name = "product_attr_generator", sequenceName = "product_attr_seq", allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id", updatable = false, nullable = false)
 	private Long id;
 
 	@Column(length = 50, nullable = false)
